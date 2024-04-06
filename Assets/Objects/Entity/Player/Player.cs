@@ -16,6 +16,7 @@ public class Player : Entity
     public Image atkBuff;
     public Image defBuff;
     Rigidbody myRig;
+    Vector3 moveDir = Vector3.zero;
     public GameObject bullet;
 
     public int playerNumber;
@@ -37,6 +38,16 @@ public class Player : Entity
         {
             playerNumber = int.Parse(value);
             GetComponent<MeshRenderer>().material = playerColors[playerNumber];
+        }
+
+        if (flag == "MOV")
+        {
+            string[] args = value.Split(",");
+            moveDir = new Vector3(float.Parse(args[0]), 0, float.Parse(args[1]));
+            if (IsServer)
+            {
+                SendUpdate("MOV", value);
+            }
         }
 
         if (flag == "BUFF")
@@ -67,18 +78,32 @@ public class Player : Entity
     // Start is called before the first frame update
     void Start()
     {
-        
+        myRig = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (IsServer)
+        {
+            myRig.AddForce(moveDir * speed);
+        }
     }
 
-    private void onMove(InputAction.CallbackContext ev)
+    public void onMove(InputAction.CallbackContext ev)
     {
-        
+        if (IsLocalPlayer)
+        {
+            if (ev.started || ev.performed)
+            {
+                Vector2 input = ev.ReadValue<Vector2>();
+                SendCommand("MOV", input.x.ToString() + "," + input.y.ToString());
+            }
+            else
+            {
+                SendCommand("MOV", "0,0");
+            }
+        }
     }
 
     void Shoot(InputAction.CallbackContext ev) { 
