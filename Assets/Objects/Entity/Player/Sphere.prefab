@@ -197,7 +197,14 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  hp: 0
+  stats:
+    stats: 320000000400000003000000
+  speed: 0
+  rotSpeed: 0
+  damageDelay: 0
+  attackCooldown: 0
+  invincible: 0
+  iFrameLength: 0
   bulletTimer: {fileID: 0}
   sword: {fileID: 0}
   gun: {fileID: 0}

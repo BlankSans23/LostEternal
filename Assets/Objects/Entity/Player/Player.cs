@@ -38,6 +38,15 @@ public class Player : Entity
             playerNumber = int.Parse(value);
             GetComponent<MeshRenderer>().material = playerColors[playerNumber];
         }
+
+        if (flag == "BUFF")
+        {
+            string[] args = value.Split(',');
+            StatType t = (StatType)int.Parse(args[0]);
+            int amount = int.Parse(args[1]);
+
+            Buff(t, amount);
+        }
     }
 
     public override IEnumerator SlowUpdate()
@@ -84,8 +93,17 @@ public class Player : Entity
     {
         
     }
-    void Buff() { 
-    
+    public void Buff(StatType type, int amount) {
+        stats[type] += amount;
+
+        if (IsServer)
+        {
+            SendUpdate("BUFF", ((int)type).ToString() + "," + amount.ToString());
+        }
+        if (IsClient)
+        {
+            //Visual Crap
+        }
     }
 
     IEnumerator bulletCD() {

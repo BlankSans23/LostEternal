@@ -5,27 +5,27 @@ using NETWORK_ENGINE;
 
 public class Entity : NetworkComponent
 {
-    int attack;
-    int defense;
-    public int hp;
-    float speed;
-    float rotSpeed;
-    float damageDelay;
-    float attackCooldown;
-    bool invincible;
-    float iFrameLength;
+    [Tooltip("HP, ATK, then DEF")]
+    [SerializeField] protected StatPage stats;
+
+    [SerializeField] protected float speed;
+    [SerializeField] protected float rotSpeed;
+
+    [SerializeField] float damageDelay;
+    [SerializeField] float attackCooldown;
+    [SerializeField] bool invincible = false;
+    [SerializeField] float iFrameLength;
+
     NetworkAnimator anim;
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public override IEnumerator SlowUpdate()
@@ -51,19 +51,62 @@ public class Entity : NetworkComponent
     }
 
     IEnumerator Attack(Vector3 origin, float radius) {
-        yield return null;
+        yield return new WaitForSeconds(damageDelay);
+        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, transform.forward);
+        foreach (RaycastHit hit in hits)
+        {
+            Entity e;
+            if (hit.collider.gameObject.TryGetComponent<Entity>(out e))
+                e.Damage(stats[StatType.ATK]);
+        }
     }
 
-    void Damage(int atkStrength) { 
-    
+    public void Damage(int atkStrength) {
+        if (!invincible)
+        {
+            if (atkStrength > stats[StatType.DEF])
+                stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
+            else
+                stats[StatType.HP] -= 1;
+
+            StartCoroutine(InvincibilityTimer());
+        }
+
+        if (stats[StatType.HP] < 0)
+            Die();
     }
 
     IEnumerator InvincibilityTimer()
     {
-        yield return null;
+        invincible = true;
+        yield return new WaitForSeconds(iFrameLength);
+        invincible = false;
     }
 
     void Die() { 
     //lmao freal????
+    //Imagine being dead lol
+    }
+}
+
+//Data Wrapper for Above Class
+//Make Stats Indexable for accessors
+public enum StatType {HP,ATK,DEF}
+
+[System.Serializable]
+public class StatPage
+{
+    [SerializeField] int[] stats;
+
+    public int this[StatType i]
+    {
+        get
+        {
+            return stats[(int)i];
+        }
+        set
+        {
+            stats[(int) i] = value;
+        }
     }
 }
