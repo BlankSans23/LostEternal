@@ -30,12 +30,12 @@ public class Entity : NetworkComponent
 
     public override IEnumerator SlowUpdate()
     {
-        yield return new WaitForSeconds(.1f);
+        yield return null;
     }
 
     public override void HandleMessage(string flag, string value)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void NetworkedStart()

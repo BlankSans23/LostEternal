@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : Entity
 {
-
     float aggro;
     float score;
     bool bulletLoaded;
@@ -17,6 +17,44 @@ public class Player : Entity
     public Image defBuff;
     Rigidbody myRig;
     public GameObject bullet;
+
+    public int playerNumber;
+    public string pName;
+    [SerializeField] Material[] playerColors;
+    [SerializeField] TextMeshProUGUI playerName;
+
+    public override void HandleMessage(string flag, string value)
+    {
+        base.HandleMessage(flag, value);
+
+        if (flag == "NAME")
+        {
+            pName = value;
+            playerName.text = pName;
+        }
+
+        if (flag == "COLOR")
+        {
+            playerNumber = int.Parse(value);
+            GetComponent<MeshRenderer>().material = playerColors[playerNumber];
+        }
+    }
+
+    public override IEnumerator SlowUpdate()
+    {
+        while (IsServer)
+        {
+            if (IsDirty)
+            {
+                SendUpdate("NAME", pName);
+                SendUpdate("COLOR", playerNumber.ToString());
+
+                IsDirty = false;
+            }
+
+            yield return new WaitForSeconds(MyId.UpdateFrequency);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
