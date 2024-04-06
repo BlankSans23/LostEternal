@@ -48,11 +48,10 @@ public class Player : Entity
             {
                 SendUpdate("NAME", pName);
                 SendUpdate("COLOR", playerNumber.ToString());
-
-                IsDirty = false;
             }
 
-            yield return new WaitForSeconds(MyId.UpdateFrequency);
+            //IsDirty set to false at the lowest tier
+            yield return StartCoroutine(base.SlowUpdate());
         }
     }
 

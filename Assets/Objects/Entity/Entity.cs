@@ -30,7 +30,14 @@ public class Entity : NetworkComponent
 
     public override IEnumerator SlowUpdate()
     {
-        yield return null;
+        if (IsServer)
+        {
+            if (IsDirty)
+            {
+                IsDirty = false;
+            }
+            yield return new WaitForSeconds(MyId.UpdateFrequency);
+        }
     }
 
     public override void HandleMessage(string flag, string value)
