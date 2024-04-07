@@ -211,6 +211,7 @@ MonoBehaviour:
   gun: {fileID: 0}
   atkBuff: {fileID: 0}
   defBuff: {fileID: 0}
+  myRig: {fileID: 6072650211268467849}
   bullet: {fileID: 0}
   playerNumber: 0
   pName: 
@@ -309,6 +310,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: dd23c911-bd8d-40fd-9138-b73cbe633c8d
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1702850113613946899}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Interact
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 4ce2b31d-bb4d-4d9f-8e8a-2714e078c902
+    m_ActionName: Player/Interact[/Keyboard/e]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

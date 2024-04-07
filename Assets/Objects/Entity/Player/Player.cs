@@ -84,7 +84,8 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
-        if (IsServer)
+        
+        if ( IsServer)
         {
             myRig.AddForce(moveDir * speed);
         }
@@ -110,7 +111,14 @@ public class Player : Entity
     
     }
     
-    void Interact(InputAction.CallbackContext ev) { 
+    public void Interact(InputAction.CallbackContext ev) 
+    { 
+        if (IsLocalPlayer && ev.started)
+        {
+            //EV = Event Contest
+            Debug.Log("InteractKey");
+            
+        }
     
     }
 

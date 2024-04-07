@@ -142,7 +142,7 @@ public class NetworkRigidBody : NetworkComponent
     }
     void Update()
     {
-        if(IsClient && ClientRecv)
+        if( IsClient && ClientRecv)
         {
             //Continously update velocity.
             if (LastVelocity.magnitude < .05f)
