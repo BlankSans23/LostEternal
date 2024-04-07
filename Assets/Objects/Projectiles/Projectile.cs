@@ -1,36 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NETWORK_ENGINE;
-
-public class Projectile : NetworkComponent
+public class Projectile : MonoBehaviour
 {
-    float speed;
+    public float speed;
     GameObject owner;
 
-    public override void HandleMessage(string flag, string value)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void NetworkedStart()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override IEnumerator SlowUpdate()
-    {
-        yield return new WaitForSeconds(.1f);
-    }
-
-    private void Awake()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
     {
+        if (GetComponent<NetworkRigidBody>().IsServer) {
+            GetComponent<NetworkRigidBody>().MyRig.velocity = transform.forward * speed;
+        }
         
     }
 }
