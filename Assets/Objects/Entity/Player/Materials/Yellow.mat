@@ -100,8 +100,8 @@ Material:
     - _Color: {r: 1, g: 0.976444, b: 0, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FresnelColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HighColor: {r: 0.7528302, g: 0.92777985, b: 1, a: 1}
-    - _LowColor: {r: 0.21509439, g: 0.047397174, b: 0.010957621, a: 1}
+    - _HighColor: {r: 0.5296617, g: 0.63920254, b: 0.6830188, a: 1}
+    - _LowColor: {r: 0.10943389, g: 0.023550516, b: 0.005574925, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
