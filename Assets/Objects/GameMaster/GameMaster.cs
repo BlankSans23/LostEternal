@@ -7,7 +7,7 @@ public class GameMaster : NetworkComponent
 {
     int enemiesDefeated = 0;
     int totalEnemies = 3;
-    int maxLives; //incremented by total players
+    int maxLives = 0; //incremented by total players
 
     public bool GameStarted = false;
 
@@ -20,6 +20,17 @@ public class GameMaster : NetworkComponent
             {
                 GameObject.FindGameObjectWithTag("ReadyUp").transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
             }
+        }
+
+        if (flag == "EDEF") { 
+            enemiesDefeated++;
+            if (enemiesDefeated == totalEnemies) {
+                SendUpdate("WIN","");
+            }
+        }
+
+        if (flag == "WIN") { 
+            
         }
     }
 
@@ -48,6 +59,7 @@ public class GameMaster : NetworkComponent
                         GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
                         player.GetComponent<Player>().pName = players[p].pName;
                         player.GetComponent<Player>().playerNumber = p;
+                        maxLives++;
                     }
                     GameStarted = true;
                     SendUpdate("STARTGAME", "");
@@ -69,11 +81,14 @@ public class GameMaster : NetworkComponent
     }
 
     void Win() { 
-    
+        //play cutscene - do we wanna make this a video that just plays?
+        //then send to credits
     }
 
-    void DefeatEnemy() { 
-    
+    void DefeatEnemy() {
+        if (IsServer) {
+            SendUpdate("EDEF", "");
+        }
     }
 
 }
