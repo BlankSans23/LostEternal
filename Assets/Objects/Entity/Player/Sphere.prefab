@@ -200,7 +200,7 @@ MonoBehaviour:
   IsDirty: 0
   stats:
     stats: 320000000400000003000000
-  speed: 700
+  speed: 350
   rotSpeed: 0
   damageDelay: 0
   attackCooldown: 0
@@ -211,7 +211,6 @@ MonoBehaviour:
   gun: {fileID: 0}
   atkBuff: {fileID: 0}
   defBuff: {fileID: 0}
-  myRig: {fileID: 6072650211268467849}
   bullet: {fileID: 0}
   playerNumber: 0
   pName: 
