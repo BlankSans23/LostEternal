@@ -26,6 +26,8 @@ public class Player : Entity
 
     [SerializeField] Vector3 cameraOffset = Vector3.zero;
 
+    Vector2 input;
+
     public override void HandleMessage(string flag, string value)
     {
         base.HandleMessage(flag, value);
@@ -89,17 +91,19 @@ public class Player : Entity
         
         if ( IsServer)
         {
-            myRig.AddTorque(moveDir.x * speed * transform.up);
-            myRig.AddForce(moveDir.z * speed * transform.forward);
+            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //myRig.angularVelocity = new Vector3(myRig.angularVelocity.x, moveDir.x * rotSpeed * Time.deltaTime, myRig.angularVelocity.z);
+            myRig.AddForce(transform.forward * moveDir.z * speed);
         }
         if (IsClient && !IsLocalPlayer)
         {
-            myRig.AddTorque(moveDir.x * speed * transform.up);
+            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
         }
         if (IsLocalPlayer)
         {
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = cameraOffset;
+            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
         }
     }
 
@@ -109,12 +113,12 @@ public class Player : Entity
         {
             if (ev.started || ev.performed)
             {
-                Vector2 input = ev.ReadValue<Vector2>();
-                myRig.AddTorque(input.x * speed * transform.up);
+                input = ev.ReadValue<Vector2>();
                 SendCommand("MOV", input.x.ToString() + "," + input.y.ToString());
             }
             else
             {
+                input = Vector2.zero;
                 SendCommand("MOV", "0,0");
             }
         }

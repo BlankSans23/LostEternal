@@ -20,8 +20,8 @@ public class Enemy : Entity
         
     }
 
-    void SearchForPlayer() { 
-    
+    protected void SearchForPlayer() { 
+        
     }
 
     void Shot(GameObject source) { 
