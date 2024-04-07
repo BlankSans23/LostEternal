@@ -24,6 +24,8 @@ public class Player : Entity
     [SerializeField] Material[] playerColors;
     [SerializeField] TextMeshProUGUI playerName;
 
+    [SerializeField] Vector3 cameraOffset = Vector3.zero;
+
     public override void HandleMessage(string flag, string value)
     {
         base.HandleMessage(flag, value);
@@ -87,7 +89,17 @@ public class Player : Entity
         
         if ( IsServer)
         {
-            myRig.AddForce(moveDir * speed);
+            myRig.AddTorque(moveDir.x * speed * transform.up);
+            myRig.AddForce(moveDir.z * speed * transform.forward);
+        }
+        if (IsClient && !IsLocalPlayer)
+        {
+            myRig.AddTorque(moveDir.x * speed * transform.up);
+        }
+        if (IsLocalPlayer)
+        {
+            Camera.main.transform.SetParent(transform);
+            Camera.main.transform.localPosition = cameraOffset;
         }
     }
 
@@ -98,6 +110,7 @@ public class Player : Entity
             if (ev.started || ev.performed)
             {
                 Vector2 input = ev.ReadValue<Vector2>();
+                myRig.AddTorque(input.x * speed * transform.up);
                 SendCommand("MOV", input.x.ToString() + "," + input.y.ToString());
             }
             else

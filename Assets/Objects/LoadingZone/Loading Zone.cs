@@ -5,34 +5,31 @@ using UnityEngine;
 public class LoadingZone : MonoBehaviour
 {
 
-    int minPlayers = 2;
+    [SerializeField] int minPlayers = 2;
     int currentPlayers = 0;
-    Transform teleportLoc;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] Transform teleportLoc;
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<Player>().IsServer)
+            currentPlayers++;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        
+        if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<Player>().IsServer)
+        {
+            if (currentPlayers >= 2)
+            {
+                currentPlayers++;
+                other.gameObject.GetComponent<Rigidbody>().position = teleportLoc.position;
+            }
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<Player>().IsServer)
+            currentPlayers--;
     }
 }

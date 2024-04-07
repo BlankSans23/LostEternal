@@ -110,7 +110,7 @@ MonoBehaviour:
   LastVelocity: {x: 0, y: 0, z: 0}
   LastAngular: {x: 0, y: 0, z: 0}
   OffsetVelocity: {x: 0, y: 0, z: 0}
-  Threshold: 0.1
+  Threshold: 0.01
   EThreshold: 2.5
   MyRig: {fileID: 0}
   UseOffsetVelocity: 1
@@ -146,7 +146,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 5
-  m_AngularDrag: 0.05
+  m_AngularDrag: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -201,7 +201,7 @@ MonoBehaviour:
   stats:
     stats: 320000000400000003000000
   speed: 350
-  rotSpeed: 0
+  rotSpeed: 500
   damageDelay: 0
   attackCooldown: 0
   invincible: 0
@@ -220,6 +220,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3202f6719bb8c8e40960a572d0348d7d, type: 2}
   - {fileID: 2100000, guid: 72ae7bcc5882b14469913727c23601fe, type: 2}
   playerName: {fileID: 6127700840404343157}
+  cameraOffset: {x: 0, y: 0, z: -3}
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0

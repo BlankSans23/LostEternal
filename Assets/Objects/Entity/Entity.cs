@@ -83,7 +83,7 @@ public class Entity : NetworkComponent
         invincible = false;
     }
 
-    void Die() { 
+    public virtual void Die() { 
     //lmao freal????
     //Imagine being dead lol
     }
