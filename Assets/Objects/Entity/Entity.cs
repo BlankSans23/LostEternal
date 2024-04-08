@@ -89,6 +89,7 @@ public class Entity : NetworkComponent
     }
 }
 
+#region STAT_PAGE
 //Data Wrapper for Above Class
 //Make Stats Indexable for accessors
 public enum StatType {HP,ATK,DEF}
@@ -110,3 +111,4 @@ public class StatPage
         }
     }
 }
+#endregion

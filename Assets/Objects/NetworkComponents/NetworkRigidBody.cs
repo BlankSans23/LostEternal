@@ -66,7 +66,7 @@ public class NetworkRigidBody : NetworkComponent
             //Update last Velocity -- notice it is not set here.
             LastVelocity = VectorFromString(value);
         }
-        if(flag == "ROT" && IsClient)
+        if(flag == "ROT" && IsClient && !IsLocalPlayer)
         {
             //Update rotation
             LastRotation = VectorFromString(value);

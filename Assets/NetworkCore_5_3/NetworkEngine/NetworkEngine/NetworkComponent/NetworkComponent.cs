@@ -22,8 +22,8 @@ namespace NETWORK_ENGINE
             get { return MyCore.IsClient; }
         }
         public bool IsServer
-        {      
-                get { return MyCore.IsServer; }       
+        {
+            get { return MyCore.IsServer; }
         }
         public bool IsLocalPlayer
         {
@@ -54,6 +54,18 @@ namespace NETWORK_ENGINE
             {
                 throw new System.Exception("ERROR: There is no network ID on this object");
             }
+            if (!MyId.UseLobby)
+            {
+                MyCore = GameObject.FindObjectOfType<NetworkCore>();
+            }
+            else
+            {
+                MyCore = GameObject.FindObjectOfType<LobbyManager2>();
+            }
+            if (MyCore == null)
+            {
+                throw new System.Exception("There is no network core in the scene!");
+            }
             StartCoroutine(SlowStart());
         }
         void Start()
@@ -63,7 +75,7 @@ namespace NETWORK_ENGINE
         IEnumerator SlowStart()
         {
             yield return new WaitUntil(() => MyId.IsInit);
-            MyCore = MyId.MyCore;
+            //MyCore = MyId.MyCore;
             if (MyCore == null)
             {
                 throw new System.Exception("ERROR: There is no network core on the scene.");

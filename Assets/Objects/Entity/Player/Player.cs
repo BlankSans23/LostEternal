@@ -29,7 +29,6 @@ public class Player : Entity
     [SerializeField] float additionalGForce = 4f;
 
     Vector3 moveDir = Vector3.zero;
-    Vector2 mouseDir = Vector2.zero;
 
     Vector2 input;
     Vector2 mouseInput;
@@ -60,13 +59,17 @@ public class Player : Entity
             }
         }
 
-        if (flag == "MOU")
+        if (flag == "ROTATE")
         {
-            string[] args = value.Split(",");
-            mouseDir = new Vector2(float.Parse(args[0]), float.Parse(args[1]));
+            Vector3 forward = NetworkCore.Vector3FromString(value);
             if (IsServer)
             {
-                SendUpdate("MOU", value);
+                transform.forward = forward;
+                SendUpdate("ROTATE", value);
+            }
+            if (IsClient && !IsLocalPlayer)
+            {
+                transform.forward = forward;
             }
         }
 
@@ -104,29 +107,21 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
-        
-        if ( IsServer)
-        {
-            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
-            //myRig.angularVelocity = new Vector3(myRig.angularVelocity.x, moveDir.x * rotSpeed * Time.deltaTime, myRig.angularVelocity.z);
-        }
-        if (IsClient && !IsLocalPlayer)
-        {
-            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
-        }
+        //Camera code
         if (IsLocalPlayer)
         {
+            //Keep the camera on the local player
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = cameraOffset;
-            //if (input.magnitude >= new Vector2(moveDir.x, moveDir.y).magnitude)
-            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
-            //if ((Camera.main.transform.rotation.eulerAngles.x > 320 && Camera.main.transform.rotation.eulerAngles.x <= 360) || (Camera.main.transform.rotation.eulerAngles.x >= 0 && Camera.main.transform.rotation.eulerAngles.x < 20))
 
+            //Store the old positions in case out of looking bouuds
             Vector3 previousCamPosition = Camera.main.transform.localPosition;
             Quaternion previousCamRotation = Camera.main.transform.localRotation;
 
+            //Rotate the camera up and down
             Camera.main.transform.RotateAround(transform.position, transform.right, -8f * mouseInput.y * rotSpeed * Time.deltaTime);
 
+            //Restore old position and rotation if OOB
             Vector3 camRotation = Camera.main.transform.localRotation.eulerAngles;
 
             if (camRotation.x < minCameraRotation && camRotation.x > maxCameraRotation)
@@ -137,6 +132,7 @@ public class Player : Entity
         }
     }
 
+    //Handle the player controller
     private void FixedUpdate()
     {
         if (IsServer)
@@ -145,27 +141,14 @@ public class Player : Entity
             myRig.AddForce(transform.right * moveDir.x * speed);
             if (moveDir == Vector3.zero)
                 myRig.velocity = Vector3.zero + (Vector3.up * myRig.velocity.y);
-            myRig.AddTorque(transform.up * mouseDir.x * rotSpeed);
-            if (mouseDir.x == 0)
-                myRig.angularVelocity = Vector3.zero;
 
             //Gravity
             myRig.AddForce(-(additionalGForce * myRig.drag - 1f) * Vector3.up);
         }
-        if (IsClient && !IsLocalPlayer)
-        {
-            myRig.AddTorque(transform.up * mouseDir.x * rotSpeed);
-            if (mouseDir.x == 0)
-                myRig.angularVelocity = Vector3.zero;
-        }
         if (IsLocalPlayer)
         {
-            if (mouseInput.magnitude >= new Vector2(mouseDir.x, mouseDir.y).magnitude)
-            {
-                myRig.AddTorque(transform.up * mouseInput.x * rotSpeed);
-                if (mouseInput.x == 0)
-                    myRig.angularVelocity = Vector3.zero;
-            }
+            myRig.AddTorque(transform.up * mouseInput.x * rotSpeed);
+            SendCommand("ROTATE", transform.forward.ToString());
         }
     }
 
@@ -192,12 +175,10 @@ public class Player : Entity
             if (ev.started || ev.performed)
             {
                 mouseInput = ev.ReadValue<Vector2>();
-                SendCommand("MOU", mouseInput.x.ToString() + "," + mouseInput.y.ToString());
             }
             else
             {
                 mouseInput = Vector2.zero;
-                SendCommand("MOU", "0,0");
             }
         }
     }
@@ -221,6 +202,7 @@ public class Player : Entity
     {
         
     }
+
     public void Buff(StatType type, int amount) {
         stats[type] += amount;
 
