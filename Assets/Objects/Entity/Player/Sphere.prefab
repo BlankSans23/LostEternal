@@ -200,13 +200,13 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   stats:
-    stats: 320000000400000003000000
+    stats: 0a0000000400000003000000
   speed: 150
   rotSpeed: 1
-  damageDelay: 0
-  attackCooldown: 0
+  damageDelay: 0.5
+  attackCooldown: 1.5
   invincible: 0
-  iFrameLength: 0
+  iFrameLength: 0.3
   bulletTimer: {fileID: 0}
   sword: {fileID: 0}
   gun: {fileID: 0}

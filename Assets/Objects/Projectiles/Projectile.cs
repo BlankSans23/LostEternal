@@ -4,7 +4,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public float speed;
-    GameObject owner;
+    public GameObject owner;
 
 
     // Update is called once per frame

@@ -8,13 +8,15 @@ public class Entity : NetworkComponent
     [Tooltip("HP, ATK, then DEF")]
     [SerializeField] protected StatPage stats;
 
-    [SerializeField] protected float speed;
-    [SerializeField] protected float rotSpeed;
+    [SerializeField] protected float speed = 150f;
+    [SerializeField] protected float rotSpeed = 1f;
 
-    [SerializeField] float damageDelay;
-    [SerializeField] float attackCooldown;
+    [SerializeField] float damageDelay = 0.5f;
+    [SerializeField] float attackCooldown = 1.5f;
     [SerializeField] bool invincible = false;
-    [SerializeField] float iFrameLength;
+    [SerializeField] float iFrameLength = 0.3f;
+
+    protected bool canAttack = true;
 
     NetworkAnimator anim;
 
@@ -50,14 +52,18 @@ public class Entity : NetworkComponent
         
     }
 
-    IEnumerator Attack(Vector3 origin, float radius) {
-        yield return new WaitForSeconds(damageDelay);
-        RaycastHit[] hits = Physics.SphereCastAll(origin, radius, transform.forward);
-        foreach (RaycastHit hit in hits)
+    protected IEnumerator Attack(Vector3 origin, float radius) {
+        if (canAttack)
         {
-            Entity e;
-            if (hit.collider.gameObject.TryGetComponent<Entity>(out e))
-                e.Damage(stats[StatType.ATK]);
+            StartCoroutine(AttackCooldown());
+            yield return new WaitForSeconds(damageDelay);
+            RaycastHit[] hits = Physics.SphereCastAll(origin, radius, transform.forward);
+            foreach (RaycastHit hit in hits)
+            {
+                Entity e;
+                if (hit.collider.gameObject.TryGetComponent<Entity>(out e))
+                    e.Damage(stats[StatType.ATK]);
+            }
         }
     }
 
@@ -81,6 +87,13 @@ public class Entity : NetworkComponent
         invincible = true;
         yield return new WaitForSeconds(iFrameLength);
         invincible = false;
+    }
+
+    IEnumerator AttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 
     public virtual void Die() { 
