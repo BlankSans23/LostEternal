@@ -202,7 +202,7 @@ MonoBehaviour:
   stats:
     stats: 320000000400000003000000
   speed: 150
-  rotSpeed: 3
+  rotSpeed: 1
   damageDelay: 0
   attackCooldown: 0
   invincible: 0
@@ -221,7 +221,10 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3202f6719bb8c8e40960a572d0348d7d, type: 2}
   - {fileID: 2100000, guid: 72ae7bcc5882b14469913727c23601fe, type: 2}
   playerName: {fileID: 6127700840404343157}
-  cameraOffset: {x: 0, y: 0, z: -3}
+  cameraOffset: {x: 0, y: 1, z: -4}
+  maxCameraRotation: 10
+  minCameraRotation: 320
+  additionalGForce: 8
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -264,7 +267,19 @@ MonoBehaviour:
     m_ActionId: 1e3203cd-8e15-43b5-82f9-8670fc8132e0
     m_ActionName: Player/Move[/Keyboard/w,/Keyboard/upArrow,/Keyboard/s,/Keyboard/downArrow,/Keyboard/a,/Keyboard/leftArrow,/Keyboard/d,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1702850113613946899}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: onMouseMove
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d4f3617f-6bcd-407f-8193-fc084bd25b8f
     m_ActionName: Player/Look[/Mouse/delta,/Pen/delta]
   - m_PersistentCalls:

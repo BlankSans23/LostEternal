@@ -19,7 +19,7 @@ public class LoadingZone : MonoBehaviour
     {
         if (other.gameObject.tag == "Player" && other.gameObject.GetComponent<Player>().IsServer)
         {
-            if (currentPlayers >= 2)
+            if (currentPlayers >= minPlayers)
             {
                 currentPlayers++;
                 other.gameObject.GetComponent<Rigidbody>().position = teleportLoc.position;

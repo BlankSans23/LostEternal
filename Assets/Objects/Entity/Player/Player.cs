@@ -16,7 +16,6 @@ public class Player : Entity
     public Image atkBuff;
     public Image defBuff;
     Rigidbody myRig;
-    Vector3 moveDir = Vector3.zero;
     public GameObject bullet;
 
     public int playerNumber;
@@ -25,8 +24,15 @@ public class Player : Entity
     [SerializeField] TextMeshProUGUI playerName;
 
     [SerializeField] Vector3 cameraOffset = Vector3.zero;
+    [SerializeField] float maxCameraRotation = 0f;
+    [SerializeField] float minCameraRotation = 320f;
+    [SerializeField] float additionalGForce = 4f;
+
+    Vector3 moveDir = Vector3.zero;
+    Vector2 mouseDir = Vector2.zero;
 
     Vector2 input;
+    Vector2 mouseInput;
 
     public override void HandleMessage(string flag, string value)
     {
@@ -51,6 +57,16 @@ public class Player : Entity
             if (IsServer)
             {
                 SendUpdate("MOV", value);
+            }
+        }
+
+        if (flag == "MOU")
+        {
+            string[] args = value.Split(",");
+            mouseDir = new Vector2(float.Parse(args[0]), float.Parse(args[1]));
+            if (IsServer)
+            {
+                SendUpdate("MOU", value);
             }
         }
 
@@ -103,7 +119,21 @@ public class Player : Entity
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = cameraOffset;
             //if (input.magnitude >= new Vector2(moveDir.x, moveDir.y).magnitude)
-                //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //if ((Camera.main.transform.rotation.eulerAngles.x > 320 && Camera.main.transform.rotation.eulerAngles.x <= 360) || (Camera.main.transform.rotation.eulerAngles.x >= 0 && Camera.main.transform.rotation.eulerAngles.x < 20))
+
+            Vector3 previousCamPosition = Camera.main.transform.localPosition;
+            Quaternion previousCamRotation = Camera.main.transform.localRotation;
+
+            Camera.main.transform.RotateAround(transform.position, transform.right, -8f * mouseInput.y * rotSpeed * Time.deltaTime);
+
+            Vector3 camRotation = Camera.main.transform.localRotation.eulerAngles;
+
+            if (camRotation.x < minCameraRotation && camRotation.x > maxCameraRotation)
+            {
+                Camera.main.transform.localPosition = previousCamPosition;
+                Camera.main.transform.localRotation = previousCamRotation;
+            }
         }
     }
 
@@ -112,24 +142,28 @@ public class Player : Entity
         if (IsServer)
         {
             myRig.AddForce(transform.forward * moveDir.z * speed);
-            if (moveDir.z == 0)
+            myRig.AddForce(transform.right * moveDir.x * speed);
+            if (moveDir == Vector3.zero)
                 myRig.velocity = Vector3.zero + (Vector3.up * myRig.velocity.y);
-            myRig.AddTorque(transform.up * moveDir.x * rotSpeed);
-            if (moveDir.x == 0)
+            myRig.AddTorque(transform.up * mouseDir.x * rotSpeed);
+            if (mouseDir.x == 0)
                 myRig.angularVelocity = Vector3.zero;
+
+            //Gravity
+            myRig.AddForce(-(additionalGForce * myRig.drag - 1f) * Vector3.up);
         }
         if (IsClient && !IsLocalPlayer)
         {
-            myRig.AddTorque(transform.up * moveDir.x * rotSpeed);
-            if (moveDir.x == 0)
+            myRig.AddTorque(transform.up * mouseDir.x * rotSpeed);
+            if (mouseDir.x == 0)
                 myRig.angularVelocity = Vector3.zero;
         }
         if (IsLocalPlayer)
         {
-            if (input.magnitude >= new Vector2(moveDir.x, moveDir.y).magnitude)
+            if (mouseInput.magnitude >= new Vector2(mouseDir.x, mouseDir.y).magnitude)
             {
-                myRig.AddTorque(transform.up * input.x * rotSpeed);
-                if (input.x == 0)
+                myRig.AddTorque(transform.up * mouseInput.x * rotSpeed);
+                if (mouseInput.x == 0)
                     myRig.angularVelocity = Vector3.zero;
             }
         }
@@ -148,6 +182,22 @@ public class Player : Entity
             {
                 input = Vector2.zero;
                 SendCommand("MOV", "0,0");
+            }
+        }
+    }
+
+    public void onMouseMove(InputAction.CallbackContext ev) {
+        if (IsLocalPlayer)
+        {
+            if (ev.started || ev.performed)
+            {
+                mouseInput = ev.ReadValue<Vector2>();
+                SendCommand("MOU", mouseInput.x.ToString() + "," + mouseInput.y.ToString());
+            }
+            else
+            {
+                mouseInput = Vector2.zero;
+                SendCommand("MOU", "0,0");
             }
         }
     }
