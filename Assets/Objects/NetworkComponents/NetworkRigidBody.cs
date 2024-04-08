@@ -140,7 +140,7 @@ public class NetworkRigidBody : NetworkComponent
     {
         MyRig = GetComponent<Rigidbody>();
     }
-    void Update()
+    void FixedUpdate()
     {
         if( IsClient && ClientRecv)
         {

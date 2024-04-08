@@ -111,8 +111,8 @@ MonoBehaviour:
   LastVelocity: {x: 0, y: 0, z: 0}
   LastAngular: {x: 0, y: 0, z: 0}
   OffsetVelocity: {x: 0, y: 0, z: 0}
-  Threshold: 0.01
-  EThreshold: 2.5
+  Threshold: 0.1
+  EThreshold: 3.5
   MyRig: {fileID: 0}
   UseOffsetVelocity: 1
   ClientRecv: 0
@@ -147,7 +147,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 10
-  m_AngularDrag: 0.5
+  m_AngularDrag: 20
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -162,7 +162,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &881605711571477003
 MonoBehaviour:
@@ -201,7 +201,7 @@ MonoBehaviour:
   IsDirty: 0
   stats:
     stats: 320000000400000003000000
-  speed: 350
+  speed: 150
   rotSpeed: 3
   damageDelay: 0
   attackCooldown: 0

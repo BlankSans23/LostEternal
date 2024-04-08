@@ -91,19 +91,47 @@ public class Player : Entity
         
         if ( IsServer)
         {
-            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
             //myRig.angularVelocity = new Vector3(myRig.angularVelocity.x, moveDir.x * rotSpeed * Time.deltaTime, myRig.angularVelocity.z);
-            myRig.AddForce(transform.forward * moveDir.z * speed);
         }
         if (IsClient && !IsLocalPlayer)
         {
-            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * moveDir.x).normalized, rotSpeed * Time.deltaTime, 0);
         }
         if (IsLocalPlayer)
         {
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = cameraOffset;
-            transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
+            //if (input.magnitude >= new Vector2(moveDir.x, moveDir.y).magnitude)
+                //transform.forward = Vector3.RotateTowards(transform.forward, (transform.right * input.x).normalized, rotSpeed * Time.deltaTime, 0);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsServer)
+        {
+            myRig.AddForce(transform.forward * moveDir.z * speed);
+            if (moveDir.z == 0)
+                myRig.velocity = Vector3.zero + (Vector3.up * myRig.velocity.y);
+            myRig.AddTorque(transform.up * moveDir.x * rotSpeed);
+            if (moveDir.x == 0)
+                myRig.angularVelocity = Vector3.zero;
+        }
+        if (IsClient && !IsLocalPlayer)
+        {
+            myRig.AddTorque(transform.up * moveDir.x * rotSpeed);
+            if (moveDir.x == 0)
+                myRig.angularVelocity = Vector3.zero;
+        }
+        if (IsLocalPlayer)
+        {
+            if (input.magnitude >= new Vector2(moveDir.x, moveDir.y).magnitude)
+            {
+                myRig.AddTorque(transform.up * input.x * rotSpeed);
+                if (input.x == 0)
+                    myRig.angularVelocity = Vector3.zero;
+            }
         }
     }
 
