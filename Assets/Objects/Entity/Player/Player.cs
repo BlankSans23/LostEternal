@@ -7,32 +7,33 @@ using TMPro;
 
 public class Player : Entity
 {
-    float bulletCooldown = 6f;
-    float score;
-    bool bulletLoaded = true;
-    public Image bulletTimer;
+    [SerializeField] Transform head;
+    [SerializeField] Transform shootPos;
+
+    [SerializeField] Vector3 cameraOffset = Vector3.zero;
+    [SerializeField] float maxDownCameraRotation = 0f;
+    [SerializeField] float maxUpCameraRotation = 320f;
+    [SerializeField] float additionalGForce = 4f;
+
+    [HideInInspector] public int playerNumber;
+    [HideInInspector] public string pName;
+    [SerializeField] Material[] playerColors;
+    [SerializeField] TextMeshProUGUI playerName;
+
     public GameObject sword;
     public GameObject gun;
     public Image atkBuff;
     public Image defBuff;
+    public Image bulletTimer;
+
     Rigidbody myRig;
-    public GameObject bullet;
-
-    public int playerNumber;
-    public string pName;
-    [SerializeField] Material[] playerColors;
-    [SerializeField] TextMeshProUGUI playerName;
-
-    [SerializeField] Transform shootPos;
-    [SerializeField] Vector3 cameraOffset = Vector3.zero;
-    [SerializeField] float maxCameraRotation = 0f;
-    [SerializeField] float minCameraRotation = 320f;
-    [SerializeField] float additionalGForce = 4f;
-
     Vector3 moveDir = Vector3.zero;
-
     Vector2 input;
     Vector2 mouseInput;
+
+    float bulletCooldown = 6f;
+    float score;
+    bool bulletLoaded = true;
 
     public override void HandleMessage(string flag, string value)
     {
@@ -132,24 +133,25 @@ public class Player : Entity
         if (IsLocalPlayer)
         {
             //Keep the camera on the local player
-            Camera.main.transform.SetParent(transform);
+            Camera.main.transform.SetParent(head);
             Camera.main.transform.localPosition = cameraOffset;
             shootPos.SetParent(Camera.main.transform);
 
-            //Store the old positions in case out of looking bouuds
-            Vector3 previousCamPosition = Camera.main.transform.localPosition;
-            Quaternion previousCamRotation = Camera.main.transform.localRotation;
-
+            Vector3 previousRotation = head.localRotation.eulerAngles;
             //Rotate the camera up and down
-            Camera.main.transform.RotateAround(transform.position, transform.right, -8f * mouseInput.y * rotSpeed * Time.deltaTime);
+            head.Rotate(Vector3.right, -8f * mouseInput.y * rotSpeed * Time.deltaTime);
 
             //Restore old position and rotation if OOB
-            Vector3 camRotation = Camera.main.transform.localRotation.eulerAngles;
+            Vector3 camRotation = head.localRotation.eulerAngles;
 
-            if (camRotation.x < minCameraRotation && camRotation.x > maxCameraRotation)
+            //Define bounds in an easy to read way
+            float positiveBounds = maxDownCameraRotation;
+            float negativeBounds = 360 - maxUpCameraRotation;
+
+            //If OOB go hard set to nearest bound
+            if (camRotation.x < negativeBounds && camRotation.x > positiveBounds)
             {
-                Camera.main.transform.localPosition = previousCamPosition;
-                Camera.main.transform.localRotation = previousCamRotation;
+                head.localRotation = Quaternion.Euler(previousRotation);
             }
         }
     }

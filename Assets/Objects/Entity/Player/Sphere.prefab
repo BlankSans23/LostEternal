@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &786204621549426738
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2464991598957450889}
+  m_Layer: 6
+  m_Name: HEAD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2464991598957450889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 786204621549426738}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.345, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3424188279324078423}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1144820079304824694
 GameObject:
   m_ObjectHideFlags: 0
@@ -41,6 +72,7 @@ Transform:
   - {fileID: 4292205416499833382}
   - {fileID: 3555833569648802905}
   - {fileID: 4046229015590658930}
+  - {fileID: 2464991598957450889}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &567948157180231483
@@ -205,21 +237,21 @@ MonoBehaviour:
     stats: 0a0000000400000003000000
   speed: 150
   rotSpeed: 1
-  damageDelay: 0.5
-  attackCooldown: 1.5
-  attackOrigin: {fileID: 3555833569648802905}
-  attackRadius: 0.5
-  invincible: 0
-  iFrameLength: 0.3
   attackLayers:
     serializedVersion: 2
     m_Bits: 128
-  bulletTimer: {fileID: 0}
-  sword: {fileID: 0}
-  gun: {fileID: 0}
-  atkBuff: {fileID: 0}
-  defBuff: {fileID: 0}
-  bullet: {fileID: 0}
+  attackCooldown: 1.5
+  attackRadius: 0.5
+  damageDelay: 0.5
+  invincible: 0
+  iFrameLength: 0.3
+  attackOrigin: {fileID: 3555833569648802905}
+  head: {fileID: 2464991598957450889}
+  shootPos: {fileID: 4046229015590658930}
+  cameraOffset: {x: 0, y: 0, z: -5}
+  maxDownCameraRotation: 60
+  maxUpCameraRotation: 15
+  additionalGForce: 8
   playerNumber: 0
   pName: 
   playerColors:
@@ -228,11 +260,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3202f6719bb8c8e40960a572d0348d7d, type: 2}
   - {fileID: 2100000, guid: 72ae7bcc5882b14469913727c23601fe, type: 2}
   playerName: {fileID: 6127700840404343157}
-  shootPos: {fileID: 4046229015590658930}
-  cameraOffset: {x: 0, y: 1, z: -4}
-  maxCameraRotation: 10
-  minCameraRotation: 320
-  additionalGForce: 8
+  sword: {fileID: 0}
+  gun: {fileID: 0}
+  atkBuff: {fileID: 0}
+  defBuff: {fileID: 0}
+  bulletTimer: {fileID: 0}
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0

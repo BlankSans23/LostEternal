@@ -11,13 +11,14 @@ public class Entity : NetworkComponent
     [SerializeField] protected float speed = 150f;
     [SerializeField] protected float rotSpeed = 1f;
 
-    [SerializeField] float damageDelay = 0.5f;
+    [SerializeField] protected LayerMask attackLayers;
     [SerializeField] float attackCooldown = 1.5f;
-    [SerializeField] protected Transform attackOrigin;
     [SerializeField] protected float attackRadius = 3f;
+    [SerializeField] float damageDelay = 0.5f;
     [SerializeField] bool invincible = false;
     [SerializeField] float iFrameLength = 0.3f;
-    [SerializeField] protected LayerMask attackLayers;
+
+    [SerializeField] protected Transform attackOrigin;
 
     protected bool canAttack = true;
 
