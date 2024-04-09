@@ -248,9 +248,9 @@ MonoBehaviour:
   attackOrigin: {fileID: 3555833569648802905}
   head: {fileID: 2464991598957450889}
   shootPos: {fileID: 4046229015590658930}
-  cameraOffset: {x: 0, y: 0, z: -5}
+  cameraOffset: {x: 0, y: 1, z: -4.5}
   maxDownCameraRotation: 60
-  maxUpCameraRotation: 15
+  maxUpCameraRotation: 20
   additionalGForce: 8
   playerNumber: 0
   pName: 
