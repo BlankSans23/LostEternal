@@ -7,9 +7,9 @@ using TMPro;
 
 public class Player : Entity
 {
-    float aggro;
+    float bulletCooldown = 6f;
     float score;
-    bool bulletLoaded;
+    bool bulletLoaded = true;
     public Image bulletTimer;
     public GameObject sword;
     public GameObject gun;
@@ -23,6 +23,7 @@ public class Player : Entity
     [SerializeField] Material[] playerColors;
     [SerializeField] TextMeshProUGUI playerName;
 
+    [SerializeField] Transform shootPos;
     [SerializeField] Vector3 cameraOffset = Vector3.zero;
     [SerializeField] float maxCameraRotation = 0f;
     [SerializeField] float minCameraRotation = 320f;
@@ -81,6 +82,26 @@ public class Player : Entity
 
             Buff(t, amount);
         }
+
+        if (flag == "ATK")
+        {
+            if (IsServer)
+                StartCoroutine(Attack());
+        }
+
+        if (flag == "SHOOT")
+        {
+            if (IsServer)
+            {
+                Debug.Log(value);
+                string[] shootDetails = value.Split('|');
+                Vector3 pos = NetworkCore.Vector3FromString(shootDetails[0]);
+                GameObject b = MyCore.NetCreateObject(4, Owner, pos);
+                b.GetComponent<Projectile>().owner = gameObject;
+                Vector3 dir = NetworkCore.Vector3FromString(shootDetails[1]);
+                b.transform.forward = dir;
+            }
+        }
     }
 
     public override IEnumerator SlowUpdate()
@@ -113,6 +134,7 @@ public class Player : Entity
             //Keep the camera on the local player
             Camera.main.transform.SetParent(transform);
             Camera.main.transform.localPosition = cameraOffset;
+            shootPos.SetParent(Camera.main.transform);
 
             //Store the old positions in case out of looking bouuds
             Vector3 previousCamPosition = Camera.main.transform.localPosition;
@@ -152,6 +174,16 @@ public class Player : Entity
         }
     }
 
+    new public void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+        Gizmos.color = Color.yellow;
+
+        if (shootPos != null)
+            Gizmos.DrawSphere(shootPos.position, 0.1f);
+    }
+
+    #region CONTROLS
     public void onMove(InputAction.CallbackContext ev)
     {
         if (IsLocalPlayer)
@@ -183,8 +215,19 @@ public class Player : Entity
         }
     }
 
-    void Shoot(InputAction.CallbackContext ev) { 
-    
+    public void Attack(InputAction.CallbackContext ev) { 
+        if (IsLocalPlayer && ev.started)
+        {
+            SendCommand("ATK", "");
+        }
+    }
+
+    public void Shoot(InputAction.CallbackContext ev) { 
+        if (IsLocalPlayer && ev.started && bulletLoaded)
+        {
+            StartCoroutine(bulletCD());
+            SendCommand("SHOOT", shootPos.position.ToString() + "|" + shootPos.transform.forward.ToString());
+        }
     }
     
     public void Interact(InputAction.CallbackContext ev) 
@@ -195,8 +238,9 @@ public class Player : Entity
             Debug.Log("InteractKey");
             
         }
-    
+
     }
+    #endregion
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -217,7 +261,9 @@ public class Player : Entity
     }
 
     IEnumerator bulletCD() {
-        yield return null;
+        bulletLoaded = false;
+        yield return new WaitForSeconds(bulletCooldown);
+        bulletLoaded = true;
     }
 
 }

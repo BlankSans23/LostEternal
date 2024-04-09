@@ -13,8 +13,11 @@ public class Entity : NetworkComponent
 
     [SerializeField] float damageDelay = 0.5f;
     [SerializeField] float attackCooldown = 1.5f;
+    [SerializeField] protected Transform attackOrigin;
+    [SerializeField] protected float attackRadius = 3f;
     [SerializeField] bool invincible = false;
     [SerializeField] float iFrameLength = 0.3f;
+    [SerializeField] protected LayerMask attackLayers;
 
     protected bool canAttack = true;
 
@@ -44,7 +47,12 @@ public class Entity : NetworkComponent
 
     public override void HandleMessage(string flag, string value)
     {
-        
+        if (flag == "HP" && IsClient)
+        {
+            stats[StatType.HP] = int.Parse(value);
+            if (stats[StatType.HP] <= 0)
+                Die();
+        }
     }
 
     public override void NetworkedStart()
@@ -52,34 +60,52 @@ public class Entity : NetworkComponent
         
     }
 
-    protected IEnumerator Attack(Vector3 origin, float radius) {
-        if (canAttack)
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if (attackOrigin != null)
+            Gizmos.DrawWireSphere(attackOrigin.position, attackRadius);
+    }
+
+    protected IEnumerator Attack() {
+        if (IsServer && canAttack)
         {
             StartCoroutine(AttackCooldown());
             yield return new WaitForSeconds(damageDelay);
-            RaycastHit[] hits = Physics.SphereCastAll(origin, radius, transform.forward);
+            RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius,transform.forward, attackRadius, attackLayers);
             foreach (RaycastHit hit in hits)
-            {
+            {                
                 Entity e;
-                if (hit.collider.gameObject.TryGetComponent<Entity>(out e))
+                if (hit.collider.gameObject.TryGetComponent<Entity>(out e)) {
                     e.Damage(stats[StatType.ATK]);
+                }
             }
         }
     }
 
-    public void Damage(int atkStrength) {
-        if (!invincible)
+    public virtual void Damage(int atkStrength) {
+        if (IsServer)
         {
-            if (atkStrength > stats[StatType.DEF])
-                stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
-            else
-                stats[StatType.HP] -= 1;
+            Debug.Log("Hit: " + this.ToString());
+            if (!invincible)
+            {
+                if (atkStrength > stats[StatType.DEF])
+                {
+                    stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
 
-            StartCoroutine(InvincibilityTimer());
+                    Debug.Log($"Dealt {atkStrength - stats[StatType.DEF]} to {this}");
+                }
+                else
+                    stats[StatType.HP] -= 1;
+
+                StartCoroutine(InvincibilityTimer());
+            }
+
+            if (stats[StatType.HP] < 0)
+                Die();
+
+            SendUpdate("HP", stats[StatType.HP].ToString());
         }
-
-        if (stats[StatType.HP] < 0)
-            Die();
     }
 
     IEnumerator InvincibilityTimer()

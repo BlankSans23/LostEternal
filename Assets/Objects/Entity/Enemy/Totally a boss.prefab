@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3583411359904535137
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7606776622505619763}
+  m_Layer: 7
+  m_Name: ATK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7606776622505619763
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3583411359904535137}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 2.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7338064790020355998}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8829539664957228188
 GameObject:
   m_ObjectHideFlags: 0
@@ -15,7 +46,7 @@ GameObject:
   - component: {fileID: 121698897770378322}
   - component: {fileID: 6859146242941136907}
   - component: {fileID: 3107815562921625243}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Totally a boss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34,7 +65,8 @@ Transform:
   m_LocalPosition: {x: -88.01293, y: 0.05, z: 9.190477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7606776622505619763}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &530984814579548211
@@ -159,12 +191,18 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   stats:
-    stats: 
+    stats: 140000000500000002000000
   speed: 150
   rotSpeed: 3
   damageDelay: 0.5
   attackCooldown: 1.5
+  attackOrigin: {fileID: 7606776622505619763}
+  attackRadius: 3
   invincible: 0
   iFrameLength: 0.3
+  attackLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  targetCooldown: 4
   aggroTime: 3
   aggroRange: 10
