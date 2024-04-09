@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarriableObject : Interactible
+public class CarriableObject : MonoBehaviour, Interactible
 {
     bool IsPickedUp;
 

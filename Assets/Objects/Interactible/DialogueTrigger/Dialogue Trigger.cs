@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : Interactible
+public class DialogueTrigger : MonoBehaviour, Interactible
 {
     Dialogue dialogue;
     Animator anim;
