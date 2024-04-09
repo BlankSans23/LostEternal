@@ -44,7 +44,8 @@ public class NetworkAnimator : NetworkComponent
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        if (anim == null)
+            anim = GetComponent<Animator>();
     }
 
     //Sends an update with the provided network message tag, and the information needed for the animator.

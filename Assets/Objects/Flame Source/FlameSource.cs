@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class FlameSource : MonoBehaviour
 {
-    List<Flame> flames;
+    public List<GameObject> flames;
 
     // Start is called before the first frame update
     void Start()
     {
-        //get all children
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            flames.Add(transform.GetChild(i).gameObject);
+        }
     }
 
-    void Extinguish() { 
-    
+    void Extinguish() {
+
+        if (flames.Count > 0)
+            flames.RemoveAt(0);
     }
 
     private void OnTriggerEnter(Collider other)
