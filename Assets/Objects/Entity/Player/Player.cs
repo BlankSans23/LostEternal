@@ -238,7 +238,15 @@ public class Player : Entity
         {
             //EV = Event Contest
             Debug.Log("InteractKey");
-            
+            RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius, transform.forward);
+
+            foreach (RaycastHit hit in hits)
+            {
+                Interactable i;
+
+                if (hit.collider.TryGetComponent<Interactable>(out i))
+                    i.Interact(this);
+            }
         }
 
     }

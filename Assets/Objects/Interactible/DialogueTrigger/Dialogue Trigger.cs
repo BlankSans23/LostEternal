@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DialogueTrigger : MonoBehaviour, Interactible
+public class DialogueTrigger : MonoBehaviour, Interactable
 {
     Dialogue dialogue;
     Animator anim;
@@ -13,7 +13,7 @@ public class DialogueTrigger : MonoBehaviour, Interactible
         
     }
 
-    void Interact()
+    public void Interact(Entity source)
     {
         
     }
