@@ -13,34 +13,43 @@ public class Enemy : Entity
     protected Transform target;
     protected bool lockedIn = false;
     protected bool canTarget = true;
+    protected bool playerInRange = false;
     //not sure how we wanna do Animation[] Attacks
 
     // Update is called once per frame
     void Update()
     {
         if (IsServer) {
-            SearchForPlayer();
-
             //Technology
             if (target != null)
                 AI();
+
+            SearchForPlayer();
         }
     }
 
     protected virtual void AI()
     {
-        Vector3 targetDir = target.position - transform.position;
-        targetDir -= Vector3.up * targetDir.y;
+        if (playerInRange)
+        {
+            Vector3 targetDir = target.position - transform.position;
+            targetDir -= Vector3.up * targetDir.y;
 
-        transform.forward = Vector3.RotateTowards(transform.forward, targetDir.normalized, rotSpeed * Time.deltaTime, 0f);
+            transform.forward = Vector3.RotateTowards(transform.forward, targetDir.normalized, rotSpeed * Time.deltaTime, 0f);
 
-        if ((target.position - transform.position).magnitude < attackRadius + (attackOrigin.position - transform.position).magnitude)
-            StartCoroutine(Attack());
+            if ((target.position - transform.position).magnitude < attackRadius + (attackOrigin.position - transform.position).magnitude)
+                StartCoroutine(Attack());
+        }
     }
 
     protected void SearchForPlayer() {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, aggroRange, transform.forward, aggroRange, attackLayers);
-        
+
+        if (hits.Length > 0)
+            playerInRange = true;
+        else
+            playerInRange = false;
+
         if (canTarget && !lockedIn && hits.Length > 0)
         {
             StartCoroutine(SearchCooldown());
@@ -73,6 +82,22 @@ public class Enemy : Entity
         canTarget = false;
         yield return new WaitForSeconds(targetCooldown);
         canTarget = true;
+    }
+
+    protected override void Die()
+    {
+        base.Die();
+
+        GetComponent<Collider>().enabled = false;
+        if (IsServer)
+        {
+            GameObject.FindObjectOfType<GameMaster>().DefeatEnemy();
+        }
+        if (IsClient)
+        {
+            GetComponent<Renderer>().enabled = false;
+        }
+        this.enabled = false;
     }
 
     private void OnCollisionEnter(Collision collision)

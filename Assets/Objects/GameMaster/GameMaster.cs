@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using NETWORK_ENGINE;
 
 public class GameMaster : NetworkComponent
 {
-    int enemiesDefeated = 0;
-    int totalEnemies = 3;
-    int maxLives = 0; //incremented by total players
+    [SerializeField] int totalEnemies = 3;
+
+    [SerializeField] int enemiesDefeated = 0;
+    int maxLives = 1; //incremented by total players
 
     public bool GameStarted = false;
 
@@ -22,15 +24,9 @@ public class GameMaster : NetworkComponent
             }
         }
 
-        if (flag == "EDEF") { 
-            enemiesDefeated++;
-            if (enemiesDefeated == totalEnemies) {
-                SendUpdate("WIN","");
-            }
-        }
-
-        if (flag == "WIN") { 
-            
+        if (flag == "WIN" && IsClient)
+        {
+            Win();
         }
     }
 
@@ -80,14 +76,19 @@ public class GameMaster : NetworkComponent
 
     }
 
-    void Win() { 
+    void Win() {
         //play cutscene - do we wanna make this a video that just plays?
         //then send to credits
+        SceneManager.LoadScene("Win");
     }
 
-    void DefeatEnemy() {
+    public void DefeatEnemy() {
         if (IsServer) {
-            SendUpdate("EDEF", "");
+            enemiesDefeated++;
+            if (enemiesDefeated >= totalEnemies)
+            {
+                SendUpdate("WIN", "");
+            }
         }
     }
 

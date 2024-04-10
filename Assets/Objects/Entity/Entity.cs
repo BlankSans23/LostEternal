@@ -87,14 +87,11 @@ public class Entity : NetworkComponent
     public virtual void Damage(int atkStrength) {
         if (IsServer)
         {
-            Debug.Log("Hit: " + this.ToString());
             if (!invincible)
             {
                 if (atkStrength > stats[StatType.DEF])
                 {
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
-
-                    Debug.Log($"Dealt {atkStrength - stats[StatType.DEF]} to {this}");
                 }
                 else
                     stats[StatType.HP] -= 1;
@@ -102,7 +99,7 @@ public class Entity : NetworkComponent
                 StartCoroutine(InvincibilityTimer());
             }
 
-            if (stats[StatType.HP] < 0)
+            if (stats[StatType.HP] <= 0)
                 Die();
 
             SendUpdate("HP", stats[StatType.HP].ToString());
@@ -123,7 +120,7 @@ public class Entity : NetworkComponent
         canAttack = true;
     }
 
-    public virtual void Die() { 
+    protected virtual void Die() { 
     //lmao freal????
     //Imagine being dead lol
     }
