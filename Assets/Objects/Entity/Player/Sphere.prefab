@@ -252,6 +252,7 @@ MonoBehaviour:
   maxDownCameraRotation: 60
   maxUpCameraRotation: 20
   additionalGForce: 8
+  jumpForce: 11
   playerNumber: 0
   pName: 
   playerColors:
@@ -262,9 +263,7 @@ MonoBehaviour:
   playerName: {fileID: 6127700840404343157}
   sword: {fileID: 0}
   gun: {fileID: 0}
-  atkBuff: {fileID: 0}
-  defBuff: {fileID: 0}
-  bulletTimer: {fileID: 0}
+  Jumped: 0
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +409,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 63e4725c-4fb4-4154-86bb-a1cba1ba11bb
     m_ActionName: Player/Shoot[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1702850113613946899}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: Jumping
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ae5a44da-55f6-4955-9987-4f1458339f9d
+    m_ActionName: Player/Jump[/Keyboard/space]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player

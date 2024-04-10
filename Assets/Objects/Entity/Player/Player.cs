@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.UIElements;
+using System.Security.Cryptography;
+using Unity.VisualScripting;
 
 public class Player : Entity
 {
@@ -14,6 +17,7 @@ public class Player : Entity
     [SerializeField] float maxDownCameraRotation = 0f;
     [SerializeField] float maxUpCameraRotation = 320f;
     [SerializeField] float additionalGForce = 4f;
+    [SerializeField] float jumpForce = 100f;
 
     [HideInInspector] public int playerNumber;
     [HideInInspector] public string pName;
@@ -22,9 +26,12 @@ public class Player : Entity
 
     public GameObject sword;
     public GameObject gun;
-    public Image atkBuff;
-    public Image defBuff;
-    public Image bulletTimer;
+    //I  HAD AN ERROR WITH THE BELOW - needed to add everything before the image
+    //So  UnityEngine.UIElements.Image OR UnityEngine.UI.Image
+    public UnityEngine.UIElements.Image atkBuff;
+    public UnityEngine.UIElements.Image defBuff;
+    public UnityEngine.UIElements.Image bulletTimer;
+    public bool Jumped;
 
     Rigidbody myRig;
     Vector3 moveDir = Vector3.zero;
@@ -34,6 +41,7 @@ public class Player : Entity
     float bulletCooldown = 6f;
     float score;
     bool bulletLoaded = true;
+
 
     public override void HandleMessage(string flag, string value)
     {
@@ -103,6 +111,27 @@ public class Player : Entity
                 b.transform.forward = dir;
             }
         }
+
+        if (flag == "JMP")
+        {
+            if(IsServer)
+            {
+                Debug.Log("Jumping");
+
+                Jumped = bool.Parse(value);
+                if (Jumped)
+                {
+                    // Perform the jump action
+                    myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
+                SendUpdate("JMP", value);
+            }
+            if(IsLocalPlayer)
+            {
+                Jumped = bool.Parse(value);
+            }
+        }
+
     }
 
     public override IEnumerator SlowUpdate()
@@ -223,6 +252,26 @@ public class Player : Entity
             SendCommand("ATK", "");
         }
     }
+
+    public void Jumping(InputAction.CallbackContext ev)
+    {
+        if (IsLocalPlayer)
+        {
+            //Debug.Log("Attempting to jump");
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, -transform.up, out hit, 0.90f))
+            {
+                //Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
+                //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f);
+
+                myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                // Perform jump action
+                SendCommand("JMP", "true");
+            }
+        }
+    }
+
 
     public void Shoot(InputAction.CallbackContext ev) { 
         if (IsLocalPlayer && ev.started && bulletLoaded)
