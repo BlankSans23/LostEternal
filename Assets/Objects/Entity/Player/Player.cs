@@ -10,6 +10,7 @@ public class Player : Entity
     [SerializeField] Transform head;
     [SerializeField] Transform shootPos;
 
+    [SerializeField] float[] mouseSensitivity;
     [SerializeField] Vector3 cameraOffset = Vector3.zero;
     [SerializeField] float maxDownCameraRotation = 0f;
     [SerializeField] float maxUpCameraRotation = 320f;
@@ -185,7 +186,7 @@ public class Player : Entity
 
             Vector3 previousRotation = head.localRotation.eulerAngles;
             //Rotate the camera up and down
-            head.Rotate(Vector3.right, -8f * mouseInput.y * rotSpeed * Time.deltaTime);
+            head.Rotate(Vector3.right, -mouseSensitivity[1] * mouseInput.y * rotSpeed * Time.deltaTime);
 
             //Restore old position and rotation if OOB
             Vector3 camRotation = head.localRotation.eulerAngles;
@@ -217,7 +218,8 @@ public class Player : Entity
         }
         if (IsLocalPlayer)
         {
-            myRig.AddTorque(transform.up * mouseInput.x * rotSpeed);
+            //myRig.AddTorque(transform.up * mouseInput.x * rotSpeed);
+            transform.forward = Vector3.RotateTowards(transform.forward, transform.right, mouseSensitivity[0] * mouseInput.x * rotSpeed * Time.deltaTime, 0);
             SendCommand("ROTATE", transform.forward.ToString());
         }
     }
@@ -318,11 +320,6 @@ public class Player : Entity
 
     }
     #endregion
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-    }
 
     public void Buff(StatType type, int amount) {
         stats[type] += amount;

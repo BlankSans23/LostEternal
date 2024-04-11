@@ -75,23 +75,32 @@ public class Entity : NetworkComponent
         }
     }
 
+    protected void knockback(Transform source, float atkStrength)
+    {
+        Vector3 knockback = transform.position - source.position;
+        knockback = new Vector3(knockback.x, 0, knockback.z).normalized;
+        knockback += 0.5f * Vector3.up;
+
+        float knockbackMultiplier = (float)(atkStrength - stats[StatType.DEF]);
+        if (knockbackMultiplier < 1)
+            knockbackMultiplier = 1;
+        knockbackMultiplier *= knockbackForce;
+
+        GetComponent<Rigidbody>().AddForce(knockback *  knockbackMultiplier, ForceMode.Impulse);
+    }
+
     public virtual void Damage(int atkStrength, Transform e = null) {
         if (IsServer)
         {
             if (!invincible)
             {
                 if (atkStrength > stats[StatType.DEF])
-                {
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
-                    if (e != null)
-                        GetComponent<Rigidbody>().AddForce(((transform.position - e.position).normalized + 0.3f * Vector3.up) * (float)(atkStrength - stats[StatType.DEF]) * knockbackForce, ForceMode.Impulse);
-                }
                 else
-                {
                     stats[StatType.HP] -= 1;
-                    if (e != null)
-                        GetComponent<Rigidbody>().AddForce(((transform.position - e.position).normalized + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
-                }
+
+                if (e != null)
+                    knockback(e, atkStrength);
 
                 StartCoroutine(InvincibilityTimer());
             }

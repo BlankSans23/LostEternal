@@ -5,7 +5,16 @@ using UnityEngine;
 public class FoxEnemy : MobileEnemy
 {
 
-    FlameSource[] tails;
+    [SerializeField] List<FlameSource> tails;
+
+    public override void NetworkedStart()
+    {
+        base.NetworkedStart();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            tails.Add(transform.GetChild(i).GetComponent<FlameSource>());
+        }
+    }
 
     protected override void AI()
     {
@@ -24,10 +33,25 @@ public class FoxEnemy : MobileEnemy
 
     private void OnCollisionEnter(Collision other)
     {
-        if (IsServer && other.gameObject.tag == "Player")
+        if (IsServer)
         {
-            Player p = other.collider.GetComponent<Player>();
-            p.Damage(stats[StatType.ATK], this.transform);
+            if (other.gameObject.tag == "Player")
+            {
+                Player p = other.collider.GetComponent<Player>();
+                p.Damage(stats[StatType.ATK], this.transform);
+            }
+            if (other.gameObject.tag == "Debris")
+            {
+                if (tails.Count > 0)
+                {
+                    tails[0].OnCollisionEnter(other);
+                    tails.RemoveAt(0);
+                }
+                if (tails.Count <= 0)
+                {
+                    Die();
+                }
+            }
         }
     }
 }

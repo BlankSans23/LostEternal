@@ -24,11 +24,14 @@ public class FlameSource : NetworkComponent
 
     public override void NetworkedStart()
     {
-        if (IsClient && isLit)
+        if (IsClient)
         {
-            foreach (GameObject flame in flames)
+            if (isLit)
             {
-                flame.GetComponent<ParticleSystem>().Play();
+                foreach (GameObject flame in flames)
+                {
+                    flame.GetComponent<ParticleSystem>().Play();
+                }
             }
         }
     }
@@ -63,7 +66,6 @@ public class FlameSource : NetworkComponent
                 flame.GetComponent<ParticleSystem>().Play();
                 yield return new WaitForSeconds(flameSpeed);
             }
-            GetComponent<Renderer>().enabled = false;
             yield return StartCoroutine(Extinguish());
         }
         GetComponent<Rigidbody>().useGravity = false;
@@ -74,7 +76,7 @@ public class FlameSource : NetworkComponent
     public IEnumerator Extinguish() {
         isLit = false;
         GetComponent<Collider>().enabled = false;
-
+        GetComponent<Renderer>().enabled = false;
         if (IsServer)
         {
             SendUpdate("EX", "");
@@ -89,7 +91,7 @@ public class FlameSource : NetworkComponent
         }
     }
 
-    private void OnCollisionEnter(Collision other)
+    public void OnCollisionEnter(Collision other)
     {
         if (!IsServer)
             return;

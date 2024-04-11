@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6854404298945789022}
   - component: {fileID: 4660764435031739513}
   - component: {fileID: 8145084261346006152}
+  - component: {fileID: 2268586492921725442}
   - component: {fileID: 2116480477912239249}
   - component: {fileID: 5477734033780792328}
   m_Layer: 0
@@ -109,6 +110,21 @@ MonoBehaviour:
   flameStrength: 4
   flameSpeed: 0.3
   isLit: 1
+--- !u!114 &2268586492921725442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4980929110568798233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40728ce5796a1d4419f8b333cef61fc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
 --- !u!65 &2116480477912239249
 BoxCollider:
   m_ObjectHideFlags: 0
