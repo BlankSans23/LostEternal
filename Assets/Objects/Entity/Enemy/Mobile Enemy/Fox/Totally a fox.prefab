@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5057187937819337712}
   - component: {fileID: 5583583811823854729}
   - component: {fileID: 9120232532218194987}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,10 +118,10 @@ GameObject:
   - component: {fileID: 3431117000314614986}
   - component: {fileID: 6549966142589790429}
   - component: {fileID: 2454393646321425067}
-  - component: {fileID: 1785441348098660919}
   - component: {fileID: 1474065517891444064}
   - component: {fileID: 8124320662071916571}
-  m_Layer: 0
+  - component: {fileID: 353812707026075361}
+  m_Layer: 7
   m_Name: Totally a fox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,37 +232,6 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
---- !u!114 &1785441348098660919
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4176203373961467730}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8483a6ed20f8a2444a72dd213d11f941, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyCore: {fileID: 0}
-  MyId: {fileID: 0}
-  IsDirty: 0
-  stats:
-    stats: 0a0000000400000001000000
-  speed: 150
-  rotSpeed: 1
-  attackLayers:
-    serializedVersion: 2
-    m_Bits: 64
-  attackCooldown: 7
-  attackRadius: 1
-  damageDelay: 0.5
-  invincible: 0
-  iFrameLength: 0.3
-  attackOrigin: {fileID: 3816316807645978939}
-  targetCooldown: 10
-  aggroTime: 3
-  aggroRange: 10
 --- !u!114 &1474065517891444064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,3 +274,34 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &353812707026075361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176203373961467730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c288a92f9bbb541a600c43d91cb640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
+  stats:
+    stats: 0a0000000400000001000000
+  speed: 150
+  rotSpeed: 1
+  attackLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  attackCooldown: 7
+  attackRadius: 1
+  damageDelay: 0.5
+  invincible: 1
+  iFrameLength: 0.3
+  attackOrigin: {fileID: 3816316807645978939}
+  targetCooldown: 10
+  aggroTime: 3
+  aggroRange: 10
