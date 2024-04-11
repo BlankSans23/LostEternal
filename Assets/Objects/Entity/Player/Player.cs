@@ -132,6 +132,23 @@ public class Player : Entity
             }
         }
 
+        if (flag == "INTERACT")
+        {
+            if (IsServer)
+            {
+                SendUpdate("Interact", "");
+                RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius, transform.forward);
+
+                foreach (RaycastHit hit in hits)
+                {
+                    Interactable i;
+
+                    if (hit.collider.TryGetComponent<Interactable>(out i))
+                        i.Interact(this);
+                }
+            }
+        }
+
     }
 
     public override IEnumerator SlowUpdate()
@@ -286,7 +303,7 @@ public class Player : Entity
         if (IsLocalPlayer && ev.started)
         {
             //EV = Event Contest
-            Debug.Log("InteractKey");
+            SendCommand("INTERACT", "");
             RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius, transform.forward);
 
             foreach (RaycastHit hit in hits)
