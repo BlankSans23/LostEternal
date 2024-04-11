@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Brown
+  m_Shader: {fileID: 4800000, guid: 8fa84e1c8f3a97b4bb416e8eb087630e, type: 3}
+  m_Parent: {fileID: 2100000, guid: bc84601033cef4b4e87413091fb6d5f5, type: 2}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _LightScalar: 3.13
+    - _OutlineSize: 60
+    - _RampLevels: 4
+    m_Colors:
+    - _Color: {r: 0.3433962, g: 0.119271524, b: 0, a: 1}
+    - _HighColor: {r: 0.5296617, g: 0.63920254, b: 0.6830188, a: 1}
+    - _LowColor: {r: 0.10943389, g: 0.023550516, b: 0.005574925, a: 1}
+  m_BuildTextureStacks: []

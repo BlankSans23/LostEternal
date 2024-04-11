@@ -27,7 +27,7 @@ public class FoxEnemy : MobileEnemy
         if (IsServer && other.gameObject.tag == "Player")
         {
             Player p = other.collider.GetComponent<Player>();
-            p.Damage(stats[StatType.ATK], this);
+            p.Damage(stats[StatType.ATK], this.transform);
         }
     }
 }

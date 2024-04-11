@@ -69,13 +69,13 @@ public class Entity : NetworkComponent
             {                
                 Entity e;
                 if (hit.collider.gameObject.TryGetComponent<Entity>(out e)) {
-                    e.Damage(stats[StatType.ATK], e is Player ? this : null);
+                    e.Damage(stats[StatType.ATK], e is Player ? this.transform : null);
                 }
             }
         }
     }
 
-    public virtual void Damage(int atkStrength, Entity e = null) {
+    public virtual void Damage(int atkStrength, Transform e = null) {
         if (IsServer)
         {
             if (!invincible)
@@ -84,13 +84,13 @@ public class Entity : NetworkComponent
                 {
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
                     if (e != null)
-                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized + 0.3f * Vector3.up) * (float)(atkStrength - stats[StatType.DEF]) * knockbackForce, ForceMode.Impulse);
+                        GetComponent<Rigidbody>().AddForce(((transform.position - e.position).normalized + 0.3f * Vector3.up) * (float)(atkStrength - stats[StatType.DEF]) * knockbackForce, ForceMode.Impulse);
                 }
                 else
                 {
                     stats[StatType.HP] -= 1;
                     if (e != null)
-                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
+                        GetComponent<Rigidbody>().AddForce(((transform.position - e.position).normalized + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
                 }
 
                 StartCoroutine(InvincibilityTimer());
