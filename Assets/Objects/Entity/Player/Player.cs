@@ -276,6 +276,7 @@ public class Player : Entity
         {
             //Debug.Log("Attempting to jump");
 
+            //If there are problems later, the max distance is hard set and not scalable
             RaycastHit hit;
             if (Physics.Raycast(transform.position, -transform.up, out hit, 0.90f))
             {
