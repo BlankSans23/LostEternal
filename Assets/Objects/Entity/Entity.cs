@@ -17,22 +17,13 @@ public class Entity : NetworkComponent
     [SerializeField] float damageDelay = 0.5f;
     [SerializeField] bool invincible = false;
     [SerializeField] float iFrameLength = 0.3f;
+    [SerializeField] float knockbackForce = 20f;
 
     [SerializeField] protected Transform attackOrigin;
 
     protected bool canAttack = true;
 
     NetworkAnimator anim;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
 
     public override IEnumerator SlowUpdate()
     {
@@ -78,13 +69,13 @@ public class Entity : NetworkComponent
             {                
                 Entity e;
                 if (hit.collider.gameObject.TryGetComponent<Entity>(out e)) {
-                    e.Damage(stats[StatType.ATK]);
+                    e.Damage(stats[StatType.ATK], e is Player ? this : null);
                 }
             }
         }
     }
 
-    public virtual void Damage(int atkStrength) {
+    public virtual void Damage(int atkStrength, Entity e = null) {
         if (IsServer)
         {
             if (!invincible)
@@ -92,9 +83,15 @@ public class Entity : NetworkComponent
                 if (atkStrength > stats[StatType.DEF])
                 {
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
+                    if (e != null)
+                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized * (float)(atkStrength - stats[StatType.DEF]) + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
                 }
                 else
+                {
                     stats[StatType.HP] -= 1;
+                    if (e != null)
+                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
+                }
 
                 StartCoroutine(InvincibilityTimer());
             }

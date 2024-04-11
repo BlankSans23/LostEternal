@@ -5,22 +5,29 @@ using UnityEngine;
 public class FoxEnemy : MobileEnemy
 {
 
-    FlameSource tails;
+    FlameSource[] tails;
 
-    // Start is called before the first frame update
-    void Start()
+    protected override void AI()
     {
-        
+        if (playerInRange && canAttack)
+        {
+            ChasePlayer(target.position);
+        }
+        else
+        {
+            Stop();
+        }
+
+        if ((target.position - transform.position).magnitude < attackRadius + (attackOrigin.position - transform.position).magnitude)
+            StartCoroutine(Attack());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision other)
     {
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
+        if (IsServer && other.gameObject.tag == "Player")
+        {
+            Player p = other.collider.GetComponent<Player>();
+            p.Damage(stats[StatType.ATK], this);
+        }
     }
 }

@@ -7,6 +7,11 @@ public class MobileEnemy : Enemy
 {
     NavMeshAgent myAgent;
 
+    private void Start()
+    {
+        myAgent = GetComponent<NavMeshAgent>();
+    }
+
     protected void ChasePlayer(Vector3 chaseTarget) { 
         if (IsServer)
         {
@@ -15,9 +20,10 @@ public class MobileEnemy : Enemy
         }
     }
 
-    private void Start()
+    //Fuck C# bro
+    protected override void AI()
     {
-        myAgent = GetComponent<NavMeshAgent>();
+        base.AI();
     }
 
     protected void Stop()
@@ -26,20 +32,5 @@ public class MobileEnemy : Enemy
         {
             myAgent.isStopped = true;
         }
-    }
-
-    protected override void AI()
-    {
-        if (playerInRange && canAttack)
-        {
-            ChasePlayer(transform.position);
-        }
-        else
-        {
-            Stop();
-        }
-
-        if ((target.position - transform.position).magnitude < attackRadius + (attackOrigin.position - transform.position).magnitude)
-            StartCoroutine(Attack());
     }
 }
