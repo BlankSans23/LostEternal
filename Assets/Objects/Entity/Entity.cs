@@ -84,7 +84,7 @@ public class Entity : NetworkComponent
                 {
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
                     if (e != null)
-                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized * (float)(atkStrength - stats[StatType.DEF]) + 0.7f * Vector3.up) * knockbackForce, ForceMode.Impulse);
+                        GetComponent<Rigidbody>().AddForce(((transform.position - e.transform.position).normalized + 0.3f * Vector3.up) * (float)(atkStrength - stats[StatType.DEF]) * knockbackForce, ForceMode.Impulse);
                 }
                 else
                 {

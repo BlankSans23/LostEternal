@@ -245,7 +245,7 @@ MonoBehaviour:
   damageDelay: 0.5
   invincible: 0
   iFrameLength: 0.3
-  knockbackForce: 60
+  knockbackForce: 20
   attackOrigin: {fileID: 3555833569648802905}
   head: {fileID: 2464991598957450889}
   shootPos: {fileID: 4046229015590658930}
@@ -253,7 +253,7 @@ MonoBehaviour:
   maxDownCameraRotation: 60
   maxUpCameraRotation: 20
   additionalGForce: 8
-  jumpForce: 20
+  jumpForce: 40
   playerNumber: 0
   pName: 
   playerColors:
@@ -264,7 +264,9 @@ MonoBehaviour:
   playerName: {fileID: 6127700840404343157}
   sword: {fileID: 0}
   gun: {fileID: 0}
-  Jumped: 0
+  atkBuff: {fileID: 0}
+  defBuff: {fileID: 0}
+  bulletTimer: {fileID: 0}
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0

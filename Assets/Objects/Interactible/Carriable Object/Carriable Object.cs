@@ -34,7 +34,7 @@ public class CarriableObject : NetworkComponent, Interactable
             {
                 transform.SetParent(null, true);
                 rb.isKinematic = false;
-                rb.AddForce(throwForce * (transform.forward - source.transform.position).normalized, ForceMode.Impulse);
+                rb.AddForce(throwForce * source.transform.forward, ForceMode.Impulse);
                 SendCommand("PICKUP", rb.isKinematic.ToString());
                 IsPickedUp = false;
             }

@@ -4,9 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.UIElements;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 
 public class Player : Entity
 {
@@ -28,10 +25,10 @@ public class Player : Entity
     public GameObject gun;
     //I  HAD AN ERROR WITH THE BELOW - needed to add everything before the image
     //So  UnityEngine.UIElements.Image OR UnityEngine.UI.Image
-    public UnityEngine.UIElements.Image atkBuff;
-    public UnityEngine.UIElements.Image defBuff;
-    public UnityEngine.UIElements.Image bulletTimer;
-    public bool Jumped;
+    public Image atkBuff;
+    public Image defBuff;
+    public Image bulletTimer;
+    //public bool Jumped;
 
     Rigidbody myRig;
     Vector3 moveDir = Vector3.zero;
@@ -114,6 +111,7 @@ public class Player : Entity
 
         if (flag == "JMP")
         {
+            /*
             if(IsServer)
             {
                 Debug.Log("Jumping");
@@ -129,7 +127,9 @@ public class Player : Entity
             if(IsLocalPlayer)
             {
                 Jumped = bool.Parse(value);
-            }
+            }*/
+            if (IsServer)
+                myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
 
         if (flag == "INTERACT")
@@ -283,7 +283,7 @@ public class Player : Entity
                 //Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
                 //Debug.DrawLine(transform.position, hit.point, Color.red, 1.0f);
 
-                myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                //myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 // Perform jump action
                 SendCommand("JMP", "true");
             }
