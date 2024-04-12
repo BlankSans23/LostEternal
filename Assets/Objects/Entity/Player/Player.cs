@@ -24,11 +24,8 @@ public class Player : Entity
 
     public GameObject sword;
     public GameObject gun;
-    //I  HAD AN ERROR WITH THE BELOW - needed to add everything before the image
-    //So  UnityEngine.UIElements.Image OR UnityEngine.UI.Image
     public Image atkBuff;
     public Image defBuff;
-    public Image bulletTimer;
     //public bool Jumped;
 
     Rigidbody myRig;
@@ -171,6 +168,12 @@ public class Player : Entity
     void Start()
     {
         myRig = GetComponent<Rigidbody>();
+        if (IsLocalPlayer) {
+            atkBuff = GameObject.Find("ATKBuff").GetComponent<Image>();
+            atkBuff.enabled = false;
+            defBuff.enabled = false;
+            atkBuff = GameObject.Find("DEFBuff").GetComponent<Image>();
+        }
     }
 
     // Update is called once per frame
@@ -328,9 +331,16 @@ public class Player : Entity
         {
             SendUpdate("BUFF", ((int)type).ToString() + "," + amount.ToString());
         }
-        if (IsClient)
+        if (IsLocalPlayer)
         {
-            //Visual Crap
+            switch (type) {
+                case StatType.ATK:
+                    atkBuff.enabled = true;
+                break;
+                case StatType.DEF:
+                    defBuff.enabled = true;
+                break;
+            }
         }
     }
 
