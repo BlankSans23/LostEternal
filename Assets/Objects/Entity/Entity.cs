@@ -69,7 +69,7 @@ public class Entity : NetworkComponent, Damageable
             {                
                 Damageable e;
                 if (hit.collider.gameObject.TryGetComponent<Damageable>(out e)) {
-                    e.Damage(stats[StatType.ATK], e is Player ? this.transform : null);
+                    e.Damage(stats[StatType.ATK], e is Player ? transform : null);
                 }
             }
         }
@@ -124,7 +124,7 @@ public class Entity : NetworkComponent, Damageable
         invincible = false;
     }
 
-    IEnumerator AttackCooldown()
+    protected IEnumerator AttackCooldown()
     {
         canAttack = false;
         yield return new WaitForSeconds(attackCooldown);

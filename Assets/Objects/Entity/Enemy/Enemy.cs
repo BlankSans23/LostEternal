@@ -42,7 +42,7 @@ public class Enemy : Entity
         }
     }
 
-    protected void SearchForPlayer() {
+    protected virtual void SearchForPlayer() {
         RaycastHit[] hits = Physics.SphereCastAll(transform.position, aggroRange, transform.forward, aggroRange, attackLayers);
 
         if (hits.Length > 0)
@@ -65,12 +65,12 @@ public class Enemy : Entity
         Gizmos.DrawWireSphere(transform.position, aggroRange);
     }
 
-    public void Shot(GameObject source) {
+    public virtual void Shot(GameObject source) {
         target = source.transform;
         StartCoroutine(LockIn());
     }
 
-    IEnumerator LockIn()
+    protected IEnumerator LockIn()
     {
         lockedIn = true;
         yield return new WaitForSeconds(aggroTime);
@@ -105,11 +105,14 @@ public class Enemy : Entity
 
     private void OnCollisionEnter(Collision collision)
     {
-        Projectile p;
-        if (collision.gameObject.TryGetComponent<Projectile>(out p))
+        if (IsServer)
         {
-            Shot(p.owner);
-            MyCore.NetDestroyObject(p.MyId.NetId);
+            Projectile p;
+            if (collision.gameObject.TryGetComponent<Projectile>(out p))
+            {
+                Shot(p.owner);
+                MyCore.NetDestroyObject(p.MyId.NetId);
+            }
         }
     }
 }

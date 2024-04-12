@@ -109,7 +109,7 @@ public class FlameSource : NetworkComponent
         {
             Player p = other.gameObject.GetComponent<Player>();
             if (isLit)
-                p.Damage(flameStrength, this.transform);
+                p.Damage(flameStrength, transform);
         }
     }
 }

@@ -38,7 +38,7 @@ public class FoxEnemy : MobileEnemy
             if (other.gameObject.tag == "Player")
             {
                 Player p = other.collider.GetComponent<Player>();
-                p.Damage(stats[StatType.ATK], this.transform);
+                p.Damage(stats[StatType.ATK], transform);
             }
             if (other.gameObject.tag == "Debris")
             {

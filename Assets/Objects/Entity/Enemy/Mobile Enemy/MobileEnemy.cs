@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class MobileEnemy : Enemy
 {
-    NavMeshAgent myAgent;
+    protected NavMeshAgent myAgent;
 
     private void Start()
     {
