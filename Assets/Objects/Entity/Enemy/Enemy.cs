@@ -88,7 +88,10 @@ public class Enemy : Entity
     {
         base.Die();
 
-        GetComponent<Collider>().enabled = false;
+        Collider c;
+        if (TryGetComponent<Collider>(out c))
+            c.enabled = false;
+
         if (IsServer)
         {
             GameObject.FindObjectOfType<GameMaster>().DefeatEnemy();
