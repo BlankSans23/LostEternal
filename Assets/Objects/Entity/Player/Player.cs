@@ -248,7 +248,7 @@ public class Player : Entity
     #region CONTROLS
     public void onMove(InputAction.CallbackContext ev)
     {
-        if (IsLocalPlayer)
+        if (IsLocalPlayer  && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             if (ev.started || ev.performed)
             {
@@ -264,7 +264,7 @@ public class Player : Entity
     }
 
     public void onMouseMove(InputAction.CallbackContext ev) {
-        if (IsLocalPlayer)
+        if (IsLocalPlayer && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             if (ev.started || ev.performed)
             {
@@ -278,7 +278,7 @@ public class Player : Entity
     }
 
     public void Attack(InputAction.CallbackContext ev) { 
-        if (IsLocalPlayer && ev.started)
+        if (IsLocalPlayer && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             SendCommand("ATK", "");
         }
@@ -286,7 +286,7 @@ public class Player : Entity
 
     public void Jumping(InputAction.CallbackContext ev)
     {
-        if (IsLocalPlayer)
+        if (IsLocalPlayer && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             //Debug.Log("Attempting to jump");
 
@@ -306,7 +306,7 @@ public class Player : Entity
 
 
     public void Shoot(InputAction.CallbackContext ev) { 
-        if (IsLocalPlayer && ev.started && bulletLoaded)
+        if (IsLocalPlayer && ev.started && bulletLoaded && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             StartCoroutine(bulletCD());
             SendCommand("SHOOT", shootPos.position.ToString() + "|" + shootPos.transform.forward.ToString());
@@ -315,7 +315,7 @@ public class Player : Entity
     
     public void Interact(InputAction.CallbackContext ev) 
     { 
-        if (IsLocalPlayer && ev.started)
+        if (IsLocalPlayer && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             //EV = Event Contest
             SendCommand("INTERACT", "");

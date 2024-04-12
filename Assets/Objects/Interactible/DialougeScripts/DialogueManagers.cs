@@ -11,7 +11,7 @@ public class DialogueManagers : MonoBehaviour
 
     public TMP_Text NameText;
     public TMP_Text DialogueText;
-
+    public GameObject DialogueBox;
 
     public Queue<string> sentences;
 
@@ -25,8 +25,10 @@ public class DialogueManagers : MonoBehaviour
 
     public void StartedDialogue(Dialogue dialogue)
     {
+        DialogueBox.SetActive(true);
+
         //Debug.Log("Starting Conversation W/" + dialogue.name);
-    
+
         NameText.text = dialogue.name;
          
         sentences.Clear();
@@ -67,7 +69,7 @@ public class DialogueManagers : MonoBehaviour
     {
         yield return null;//This waits for a frame before entering
         InDialogue=false;
-
+        DialogueBox.SetActive(false);
         Debug.Log("Ending Convo");
     }
 }
