@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using NETWORK_ENGINE;
 
-public class Entity : NetworkComponent
+public class Entity : NetworkComponent, Damageable
 {
     [Tooltip("HP, ATK, then DEF")]
-    [SerializeField] protected StatPage stats;
+    [SerializeField] public StatPage stats;
 
     [SerializeField] protected float speed = 150f;
     [SerializeField] protected float rotSpeed = 1f;
@@ -67,8 +67,8 @@ public class Entity : NetworkComponent
             RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius,transform.forward, attackRadius, attackLayers);
             foreach (RaycastHit hit in hits)
             {                
-                Entity e;
-                if (hit.collider.gameObject.TryGetComponent<Entity>(out e)) {
+                Damageable e;
+                if (hit.collider.gameObject.TryGetComponent<Damageable>(out e)) {
                     e.Damage(stats[StatType.ATK], e is Player ? this.transform : null);
                 }
             }
@@ -86,7 +86,12 @@ public class Entity : NetworkComponent
             knockbackMultiplier = 1;
         knockbackMultiplier *= knockbackForce;
 
-        GetComponent<Rigidbody>().AddForce(knockback *  knockbackMultiplier, ForceMode.Impulse);
+        Rigidbody rb = GetComponent<Rigidbody>();
+
+        rb.AddForce(-rb.GetAccumulatedForce());
+        rb.velocity = Vector3.zero;
+
+        rb.AddForce(knockback * knockbackMultiplier, ForceMode.Impulse);
     }
 
     public virtual void Damage(int atkStrength, Transform e = null) {

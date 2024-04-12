@@ -38,7 +38,7 @@ public class Player : Entity
 
     float bulletCooldown = 6f;
     float score;
-    bool bulletLoaded = true;
+    [HideInInspector] public bool bulletLoaded = true;
 
 
     public override void HandleMessage(string flag, string value)
