@@ -131,7 +131,9 @@ public class Entity : NetworkComponent, Damageable
         canAttack = true;
     }
 
-    protected virtual void Die() { 
+    protected virtual void Die() 
+    { 
+        
     //lmao freal????
     //Imagine being dead lol
     }

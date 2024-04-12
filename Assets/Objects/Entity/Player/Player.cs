@@ -16,6 +16,10 @@ public class Player : Entity
     [SerializeField] float maxUpCameraRotation = 320f;
     [SerializeField] float additionalGForce = 4f;
     [SerializeField] float jumpForce = 100f;
+    [SerializeField] private int lives = 3; // Starting number of lives, adjust as needed
+    public Transform respawnPoint; // Point where the player will respawn
+    public Animator playerAnimator; // Animator to control player animations?
+
 
     [HideInInspector] public int playerNumber;
     [HideInInspector] public string pName;
@@ -244,6 +248,50 @@ public class Player : Entity
         if (shootPos != null)
             Gizmos.DrawSphere(shootPos.position, 0.1f);
     }
+
+    
+
+    protected override void Die()
+    {
+        if (IsServer /*  */) 
+        {
+            //playerAnimator.SetTrigger("Die");
+
+            StartCoroutine(RespawnPlayer(5f)); // 5 seconds delay before respawning
+        }
+    }
+
+    IEnumerator RespawnPlayer(float delay)
+    {
+        // Wait for the specified delay
+        yield return new WaitForSeconds(delay);
+        
+        if (lives > 0)
+        {
+            // Decrease the player's lives count
+            lives--;
+
+            // Respawn the player at the respawn point
+            transform.position = respawnPoint.position;
+
+            // Reset player health, status, and other necessary variables here
+            
+            // Notify other players and clients about the respawn if needed
+        }
+        else
+        {
+            // If there are no lives left, handle the case accordingly (e.g., end the game)
+            // You can set the player as defeated or put them in spectating mode
+            HandleGameOver();
+        }
+    }
+
+     private void HandleGameOver()
+    {
+        Debug.Log("Game Over!");
+    }
+    
+
 
     #region CONTROLS
     public void onMove(InputAction.CallbackContext ev)
