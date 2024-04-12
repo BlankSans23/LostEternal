@@ -2,11 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+ using TMPro;
+using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 public class DialogueManagers : MonoBehaviour
 {
-    public Text NameText;
-    public Text DialogueText;
-    private Queue<string> sentences;
+ 
+
+    public TMP_Text NameText;
+    public TMP_Text DialogueText;
+
+
+    public Queue<string> sentences;
+
+    public bool InDialogue = false;
+
 
     void Start()
     {
@@ -24,22 +34,40 @@ public class DialogueManagers : MonoBehaviour
         {
             sentences.Enqueue(sentence);
         }
+        InDialogue = true;
+        DisplayNextSentence();
     }
 
     public void DisplayNextSentence()
     {
+        Debug.Log("Tryingto Display Sentence");
         if(sentences.Count == 0)
         {
-            EndDialogue();
+            StartCoroutine(EndDialogue());
             return;
         }
+        Debug.Log("PastIfDisplay");
 
         string sentenceNew = sentences.Dequeue();
         DialogueText.text = sentenceNew;
     }
 
-    void EndDialogue()
+    //This is for detection of pressing E the interact key
+    public void InputE(InputAction.CallbackContext context)
     {
+        if(context.started && InDialogue)
+        {
+            Debug.Log("INPUTE");
+            DisplayNextSentence();
+        }
+        Debug.Log("IFnotInpt");
+    }
+
+    IEnumerator EndDialogue()
+    {
+        yield return null;//This waits for a frame before entering
+        InDialogue=false;
+
         Debug.Log("Ending Convo");
     }
 }

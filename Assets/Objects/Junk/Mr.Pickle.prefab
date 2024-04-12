@@ -98,8 +98,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue:
-    name: 
-    sentences: []
+    name: Mr.Pickle
+    sentences:
+    - Hey there, click me again?!
+    - My name is Mr Pickl1Q==!!
 --- !u!65 &833125810901217042
 BoxCollider:
   m_ObjectHideFlags: 0
