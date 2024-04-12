@@ -33,7 +33,7 @@ public class Player : Entity
     Vector2 input;
     Vector2 mouseInput;
 
-    float bulletCooldown = 6f;
+    [HideInInspector] public float bulletCooldown = 6f;
     float score;
     [HideInInspector] public bool bulletLoaded = true;
 
@@ -149,6 +149,21 @@ public class Player : Entity
 
     }
 
+    public override void NetworkedStart()
+    {
+        if (IsLocalPlayer)
+        {
+            playerUI ui = GameObject.FindObjectOfType<playerUI>();
+            ui.FindPlayer();
+            atkBuff = GameObject.Find("ATKBuff").GetComponent<Image>();
+            defBuff = GameObject.Find("DEFBuff").GetComponent<Image>();
+            atkBuff.enabled = false;
+            defBuff.enabled = false;
+            
+        }
+        base.NetworkedStart();
+    }
+
     public override IEnumerator SlowUpdate()
     {
         while (IsServer)
@@ -168,12 +183,6 @@ public class Player : Entity
     void Start()
     {
         myRig = GetComponent<Rigidbody>();
-        if (IsLocalPlayer) {
-            atkBuff = GameObject.Find("ATKBuff").GetComponent<Image>();
-            atkBuff.enabled = false;
-            defBuff.enabled = false;
-            atkBuff = GameObject.Find("DEFBuff").GetComponent<Image>();
-        }
     }
 
     // Update is called once per frame

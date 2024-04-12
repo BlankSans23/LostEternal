@@ -13,8 +13,8 @@ public class playerUI : MonoBehaviour
     public Image atkBuff;
     public Image defBuff;
 
-    int hpToDisplay;
-    int maxHp;
+    float hpToDisplay;
+    float maxHp;
     Player localP;
 
     bool reset = false;
@@ -25,11 +25,18 @@ public class playerUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void FindPlayer() {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        foreach (GameObject player in players) {
-            if (player.GetComponent<Player>().IsLocalPlayer) { //im sorry for how heinous this is
-                localP = player.GetComponent<Player>();
+        foreach (GameObject player in players)
+        {
+            Player temp = player.GetComponent<Player>();
+            if (temp.IsLocalPlayer)
+            { //im sorry for how heinous this is
+                localP = temp.GetComponent<Player>();
                 maxHp = localP.stats[StatType.HP];
             }
         }
@@ -38,23 +45,24 @@ public class playerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {//this makes me sad but oh well independent scripts do be independent doe
+        if (localP == null)
+            return;
         hpToDisplay = localP.stats[StatType.HP];
         hpBar.fillAmount = hpToDisplay / maxHp;
-        if (!localP.bulletLoaded&& !reset) {
+        if (!reset && !localP.bulletLoaded) {
             reloadMeter.fillAmount = 0;
             StartCoroutine(fillReloadMeter());
             reset = true;
         }
-        //do we get a timer here???
-        //and then do we update the reload meter here? or in a coroutine
     }
 
     IEnumerator fillReloadMeter() {
+        float cycles = 100f;
         while (reloadMeter.fillAmount < 1f) {
-            reloadMeter.fillAmount += .06f;
-            yield return new WaitForSeconds(.1f);
+            reloadMeter.fillAmount += 1f/cycles;
+            yield return new WaitForSeconds(localP.bulletCooldown/cycles);
         }
-        if (reloadMeter.fillAmount == 1) {
+        if (reloadMeter.fillAmount >= 1) {
             reset = false;
         }
     }

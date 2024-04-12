@@ -11,6 +11,8 @@ public class GameMaster : NetworkComponent
     [SerializeField] int enemiesDefeated = 0;
     int maxLives = 1; //incremented by total players
 
+    GameObject playerUI;
+
     public bool GameStarted = false;
 
     public override void HandleMessage(string flag, string value)
@@ -21,6 +23,7 @@ public class GameMaster : NetworkComponent
             if (IsClient)
             {
                 GameObject.FindGameObjectWithTag("ReadyUp").transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
+                playerUI.GetComponent<Canvas>().enabled = true;
             }
         }
 
@@ -67,7 +70,8 @@ public class GameMaster : NetworkComponent
     // Start is called before the first frame update
     void Start()
     {
-
+        playerUI = GameObject.Find("playerUI");
+        playerUI.GetComponent<Canvas>().enabled = false;
     }
 
     // Update is called once per frame
