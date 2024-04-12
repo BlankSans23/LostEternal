@@ -422,8 +422,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hpBar: {fileID: 2743249293674916889}
   reloadMeter: {fileID: 9131968974755943314}
-  atkBuff: {fileID: 0}
-  defBuff: {fileID: 0}
+  atkBuff: {fileID: 3307049661569459480}
+  defBuff: {fileID: 7882941548581106489}
 --- !u!1 &8947769075020481629
 GameObject:
   m_ObjectHideFlags: 0
