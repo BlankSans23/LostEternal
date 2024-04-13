@@ -17,7 +17,10 @@ public class FishEnemy : MobileEnemy
         base.NetworkedStart();
         topOfWaterfall = GameObject.Find("TOP").transform;
         bottomOfWaterfall = GameObject.Find("BOTTOM").transform;
-        dragonLoadingZone.enabled = false;
+        if (IsServer)
+        {
+            dragonLoadingZone.enabled = false;
+        }
         if (IsClient)
         {
             myAgent.enabled = false;
@@ -79,6 +82,11 @@ public class FishEnemy : MobileEnemy
             Player p = other.gameObject.GetComponent<Player>();
             p.Damage(stats[StatType.ATK], transform);
         }
+    }
+
+    public void GemHit()
+    {
+        Die();
     }
 
     void ChangeModel() {
