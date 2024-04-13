@@ -40,6 +40,7 @@ public class Player : Entity
     [HideInInspector] public float bulletCooldown = 6f;
     float score;
     [HideInInspector] public bool bulletLoaded = true;
+    float currentRotation = 0;
 
 
     public override void HandleMessage(string flag, string value)
@@ -203,23 +204,30 @@ public class Player : Entity
             shootPos.SetParent(Camera.main.transform);
             shootPos.localPosition = new Vector3(shootPos.localPosition.x, 0, shootPos.localPosition.z);
 
-            Vector3 previousRotation = head.localRotation.eulerAngles;
+            float previousRotation = currentRotation;
 
             //Rotate the camera up and down
-            head.Rotate(Vector3.right, -mouseSensitivity[1] * mouseInput.y * rotSpeed * Time.deltaTime);
+            currentRotation += -mouseSensitivity[1] * mouseInput.y * rotSpeed * Time.deltaTime;
+
+            if (currentRotation >= 360)
+                currentRotation -= 360;
+            if (currentRotation < 0)
+                currentRotation += 360;
 
             //Restore old position and rotation if OOB
-            Vector3 camRotation = head.localRotation.eulerAngles;
+            //Vector3 camRotation = head.localRotation.eulerAngles;
 
             //Define bounds in an easy to read way
             float positiveBounds = maxDownCameraRotation;
             float negativeBounds = 360 - maxUpCameraRotation;
 
             //If OOB go hard set to nearest bound
-            if (camRotation.x < negativeBounds && camRotation.x > positiveBounds)
+            if (currentRotation < negativeBounds && currentRotation > positiveBounds)
             {
-                head.localRotation = Quaternion.Euler(previousRotation);
+                currentRotation = previousRotation;
             }
+
+            head.localRotation = Quaternion.Euler(currentRotation, 0, 0);
         }
     }
 
