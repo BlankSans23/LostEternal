@@ -8,6 +8,7 @@ public class FishEnemy : MobileEnemy
     public GameObject waterProjectile;
     public Transform topOfWaterfall;
     public Transform bottomOfWaterfall;
+    [SerializeField] Collider dragonLoadingZone;
     [SerializeField] float fallSpeed = 100f;
     [SerializeField] float climbSpeed = 10f;
 
@@ -16,6 +17,7 @@ public class FishEnemy : MobileEnemy
         base.NetworkedStart();
         topOfWaterfall = GameObject.Find("TOP").transform;
         bottomOfWaterfall = GameObject.Find("BOTTOM").transform;
+        dragonLoadingZone.enabled = false;
         if (IsClient)
         {
             myAgent.enabled = false;
@@ -35,11 +37,11 @@ public class FishEnemy : MobileEnemy
 
     protected override void AI()
     {
-        if ((myAgent.destination - transform.position).magnitude < 0.5 && myAgent.destination == topOfWaterfall.position)
+        if ((myAgent.destination - transform.position).magnitude < 3f && (myAgent.destination - topOfWaterfall.position).magnitude < 1f)
         {
             ChangeModel();
         }
-        if ((myAgent.destination - transform.position).magnitude < 0.5 && canAttack && myAgent.destination == bottomOfWaterfall.position && playerInRange)
+        if ((myAgent.destination - transform.position).magnitude < 3f && canAttack && (myAgent.destination - bottomOfWaterfall.position).magnitude < 1f && playerInRange)
         {
             for (int i = 0; i < 10; i++)
             {
@@ -51,9 +53,13 @@ public class FishEnemy : MobileEnemy
 
     void Shoot(int i)
     {
-        Vector3 dir = Vector3.RotateTowards(transform.forward, transform.right, 36 * i, 0).normalized;
+        Vector3 tempForward = transform.forward;
+        transform.Rotate(Vector3.up, 36 * i);
+        Vector3 dir = transform.forward;
+        transform.forward = tempForward;
         Vector3 pos = transform.position + attackRadius * dir;
-        GameObject b = MyCore.NetCreateObject(4, Owner, pos);
+
+        GameObject b = MyCore.NetCreateObject(10, Owner, pos);
         b.GetComponent<Projectile>().owner = gameObject;
         b.transform.forward = dir;
     }
@@ -66,16 +72,27 @@ public class FishEnemy : MobileEnemy
         StartCoroutine(LockIn());
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionrEnter(Collision other)
     {
         if (IsServer && other.gameObject.tag == "Player" && myAgent.destination == topOfWaterfall.position)
         {
-            Player p = other.GetComponent<Player>();
+            Player p = other.gameObject.GetComponent<Player>();
             p.Damage(stats[StatType.ATK], transform);
         }
     }
 
     void ChangeModel() {
-        Debug.Log("Model change");
+        IsAscended = true;
+        GetComponent<Collider>().enabled = false;
+
+        if (IsServer)
+        {
+            dragonLoadingZone.enabled = true;
+            SendUpdate("EVOLVE", "");
+        }
+        if (IsClient)
+        {
+            GetComponent<Renderer>().enabled = false;
+        }
     }
 }

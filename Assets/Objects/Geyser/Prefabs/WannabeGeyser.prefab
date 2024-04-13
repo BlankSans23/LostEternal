@@ -101,7 +101,9 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  geyserStr: 5
+  geyserStr: 85
+  geyserDelay: 3
+  geyserTimeActive: 2
 --- !u!65 &4859197859126777216
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -140,5 +142,6 @@ MonoBehaviour:
   NetId: -10
   IsInit: 0
   IsLocalPlayer: 0
+  UseLobby: 0
   UpdateFrequency: 0.1
   MyCore: {fileID: 0}

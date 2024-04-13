@@ -187,6 +187,8 @@ public class Player : Entity
     void Start()
     {
         myRig = GetComponent<Rigidbody>();
+        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -199,8 +201,10 @@ public class Player : Entity
             Camera.main.transform.SetParent(head);
             Camera.main.transform.localPosition = cameraOffset;
             shootPos.SetParent(Camera.main.transform);
+            shootPos.localPosition = new Vector3(shootPos.localPosition.x, 0, shootPos.localPosition.z);
 
             Vector3 previousRotation = head.localRotation.eulerAngles;
+
             //Rotate the camera up and down
             head.Rotate(Vector3.right, -mouseSensitivity[1] * mouseInput.y * rotSpeed * Time.deltaTime);
 

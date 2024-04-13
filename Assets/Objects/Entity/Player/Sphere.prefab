@@ -252,11 +252,14 @@ MonoBehaviour:
   mouseSensitivity:
   - 0.5
   - 10
-  cameraOffset: {x: 0, y: 1, z: -4.5}
+  cameraOffset: {x: 0, y: 2, z: -3}
   maxDownCameraRotation: 60
-  maxUpCameraRotation: 20
+  maxUpCameraRotation: 40
   additionalGForce: 8
   jumpForce: 40
+  lives: 3
+  respawnPoint: {fileID: 0}
+  playerAnimator: {fileID: 0}
   playerNumber: 0
   pName: 
   playerColors:
@@ -269,7 +272,8 @@ MonoBehaviour:
   gun: {fileID: 0}
   atkBuff: {fileID: 0}
   defBuff: {fileID: 0}
-  bulletTimer: {fileID: 0}
+  bulletCooldown: 6
+  bulletLoaded: 1
 --- !u!114 &2516945214404157200
 MonoBehaviour:
   m_ObjectHideFlags: 0

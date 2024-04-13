@@ -83,6 +83,8 @@ public class GameMaster : NetworkComponent
     void Win() {
         //play cutscene - do we wanna make this a video that just plays?
         //then send to credits
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         SceneManager.LoadScene("Win");
     }
 
