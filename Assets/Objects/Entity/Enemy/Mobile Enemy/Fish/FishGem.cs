@@ -6,11 +6,13 @@ using NETWORK_ENGINE;
 public class FishGem : NetworkComponent, Damageable
 {
     FishEnemy fish;
-    ParticleSystem death;
+    [SerializeField] ParticleSystem death;
 
     [SerializeField] LoadingZone dragonLoadingZone;
     [SerializeField] Transform tpLocation;
     [SerializeField] float tpRadius = 100f;
+    [SerializeField] Transform[] fireballSpawnLocations;
+    [SerializeField] float fireballCooldown = 3f;
 
     public void Damage(int attackStrength, Transform e = null)
     {
@@ -35,7 +37,7 @@ public class FishGem : NetworkComponent, Damageable
                 p.transform.position = tpLocation.position;
             }
         }
-
+        fish.GemHit();
         this.enabled = false;
     }
 
@@ -61,13 +63,19 @@ public class FishGem : NetworkComponent, Damageable
     {
         if (IsServer)
             fish = GameObject.FindObjectOfType<FishEnemy>();
-        if (IsClient)
-            death = GetComponent<ParticleSystem>();
     }
 
     public override IEnumerator SlowUpdate()
     {
-        yield return null;
+        while (IsServer)
+        {
+            yield return new WaitForSeconds(fireballCooldown);
+            Vector3 pos = fireballSpawnLocations[Random.Range(0, fireballSpawnLocations.Length)].position;
+
+            GameObject b = MyCore.NetCreateObject(13, Owner, pos);
+            b.GetComponent<Projectile>().owner = gameObject;
+            b.transform.forward = transform.forward;
+        }
     }
 
     // Start is called before the first frame update
