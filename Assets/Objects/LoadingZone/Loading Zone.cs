@@ -23,6 +23,7 @@ public class LoadingZone : MonoBehaviour
             {
                 currentPlayers++;
                 other.gameObject.GetComponent<Rigidbody>().position = teleportLoc.position;
+                other.GetComponent<Player>().respawnPoint = teleportLoc;
             }
         }
     }

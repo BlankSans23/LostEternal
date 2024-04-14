@@ -35,6 +35,7 @@ public class FishGem : NetworkComponent, Damageable
             if (hit.collider.TryGetComponent<Player>(out p))
             {
                 p.transform.position = tpLocation.position;
+                p.respawnPoint = tpLocation;
             }
         }
         fish.GemHit();
@@ -73,7 +74,7 @@ public class FishGem : NetworkComponent, Damageable
             Vector3 pos = fireballSpawnLocations[Random.Range(0, fireballSpawnLocations.Length)].position;
 
             GameObject b = MyCore.NetCreateObject(13, Owner, pos);
-            b.GetComponent<Projectile>().owner = gameObject;
+            b.GetComponent<Projectile>().owner = fish.gameObject;
             b.transform.forward = transform.forward;
         }
     }

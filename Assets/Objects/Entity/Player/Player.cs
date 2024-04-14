@@ -9,6 +9,9 @@ public class Player : Entity
 {
     [SerializeField] Transform head;
     [SerializeField] Transform shootPos;
+    public Transform respawnPoint; // Point where the player will respawn
+    [SerializeField] float respawnDelay = 3f;
+    [SerializeField] int respawnHP;
 
     [SerializeField] float[] mouseSensitivity;
     [SerializeField] Vector3 cameraOffset = Vector3.zero;
@@ -17,7 +20,6 @@ public class Player : Entity
     [SerializeField] float additionalGForce = 4f;
     [SerializeField] float jumpForce = 100f;
     [SerializeField] private int lives = 3; // Starting number of lives, adjust as needed
-    public Transform respawnPoint; // Point where the player will respawn
     public Animator playerAnimator; // Animator to control player animations?
 
 
@@ -41,6 +43,7 @@ public class Player : Entity
     float score;
     [HideInInspector] public bool bulletLoaded = true;
     float currentRotation = 0;
+    bool alive = true;
 
 
     public override void HandleMessage(string flag, string value)
@@ -152,6 +155,12 @@ public class Player : Entity
             }
         }
 
+        if (flag == "DIE")
+        {
+            if (IsClient)
+                StartCoroutine(RespawnPlayer());
+        }
+
     }
 
     public override void NetworkedStart()
@@ -190,6 +199,7 @@ public class Player : Entity
         myRig = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
+        respawnPoint = GameObject.Find("RespawnPoint").transform;
     }
 
     // Update is called once per frame
@@ -252,6 +262,19 @@ public class Player : Entity
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (IsServer)
+        {
+            Projectile p;
+            if (collision.gameObject.TryGetComponent<Projectile>(out p))
+            {
+                Shot(p.owner);
+                MyCore.NetDestroyObject(p.MyId.NetId);
+            }
+        }
+    }
+
     new public void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -261,54 +284,50 @@ public class Player : Entity
             Gizmos.DrawSphere(shootPos.position, 0.1f);
     }
 
-    
-
     protected override void Die()
     {
-        if (IsServer /*  */) 
+        if (IsServer) 
         {
-            //playerAnimator.SetTrigger("Die");
-
-            StartCoroutine(RespawnPlayer(5f)); // 5 seconds delay before respawning
+            GameObject.FindObjectOfType<GameMaster>().PlayerDefeated();
+            SendUpdate("DIE", "");
+            StartCoroutine(RespawnPlayer()); // 5 seconds delay before respawning
         }
     }
 
-    IEnumerator RespawnPlayer(float delay)
+    void Shot(GameObject owner)
     {
-        // Wait for the specified delay
-        yield return new WaitForSeconds(delay);
-        
-        if (lives > 0)
-        {
-            // Decrease the player's lives count
-            lives--;
+        Damage(owner.GetComponent<Entity>().stats[StatType.ATK]);
+    }
 
-            // Respawn the player at the respawn point
+    IEnumerator RespawnPlayer()
+    {
+        if (IsServer) {
+            GetComponent<Collider>().enabled = false;
+            float temp = additionalGForce;
+            additionalGForce = 0;
+            myRig.useGravity = false;
+            yield return new WaitForSeconds(respawnDelay);
+            stats[StatType.HP] = respawnHP;
             transform.position = respawnPoint.position;
-
-            // Reset player health, status, and other necessary variables here
-            
-            // Notify other players and clients about the respawn if needed
+            additionalGForce = temp;
+            GetComponent<Collider>().enabled = true;
+            myRig.useGravity = true;
         }
-        else
+        if (IsClient)
         {
-            // If there are no lives left, handle the case accordingly (e.g., end the game)
-            // You can set the player as defeated or put them in spectating mode
-            HandleGameOver();
+            GetComponent<Renderer>().enabled = false;
+            alive = false;
+            yield return new WaitForSeconds(respawnDelay);
+            GetComponent<Renderer>().enabled = true;
+            alive = true;
         }
-    }
 
-     private void HandleGameOver()
-    {
-        Debug.Log("Game Over!");
     }
-    
-
 
     #region CONTROLS
     public void onMove(InputAction.CallbackContext ev)
     {
-        if (IsLocalPlayer  && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
+        if (IsLocalPlayer && alive && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             if (ev.started || ev.performed)
             {
@@ -338,7 +357,7 @@ public class Player : Entity
     }
 
     public void Attack(InputAction.CallbackContext ev) { 
-        if (IsLocalPlayer && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
+        if (IsLocalPlayer && alive && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             SendCommand("ATK", "");
         }
@@ -346,7 +365,7 @@ public class Player : Entity
 
     public void Jumping(InputAction.CallbackContext ev)
     {
-        if (IsLocalPlayer && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
+        if (IsLocalPlayer && alive && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             //Debug.Log("Attempting to jump");
 
@@ -366,7 +385,7 @@ public class Player : Entity
 
 
     public void Shoot(InputAction.CallbackContext ev) { 
-        if (IsLocalPlayer && ev.started && bulletLoaded && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
+        if (IsLocalPlayer && alive && ev.started && bulletLoaded && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             StartCoroutine(bulletCD());
             SendCommand("SHOOT", shootPos.position.ToString() + "|" + shootPos.transform.forward.ToString());
@@ -375,7 +394,7 @@ public class Player : Entity
     
     public void Interact(InputAction.CallbackContext ev) 
     { 
-        if (IsLocalPlayer && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
+        if (IsLocalPlayer && alive && ev.started && !GameObject.FindObjectOfType<DialogueManagers>().InDialogue)
         {
             //EV = Event Contest
             SendCommand("INTERACT", "");

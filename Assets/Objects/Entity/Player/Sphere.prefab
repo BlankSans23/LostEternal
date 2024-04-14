@@ -249,6 +249,9 @@ MonoBehaviour:
   attackOrigin: {fileID: 3555833569648802905}
   head: {fileID: 2464991598957450889}
   shootPos: {fileID: 4046229015590658930}
+  respawnPoint: {fileID: 0}
+  respawnDelay: 3
+  respawnHP: 20
   mouseSensitivity:
   - 0.5
   - 10
@@ -258,7 +261,6 @@ MonoBehaviour:
   additionalGForce: 8
   jumpForce: 40
   lives: 3
-  respawnPoint: {fileID: 0}
   playerAnimator: {fileID: 0}
   playerNumber: 0
   pName: 

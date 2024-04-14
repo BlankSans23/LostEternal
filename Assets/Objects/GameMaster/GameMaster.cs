@@ -9,7 +9,7 @@ public class GameMaster : NetworkComponent
     [SerializeField] int totalEnemies = 3;
 
     [SerializeField] int enemiesDefeated = 0;
-    int maxLives = 1; //incremented by total players
+    [SerializeField] int maxLives = 1; //incremented by total players
 
     GameObject playerUI;
 
@@ -30,6 +30,10 @@ public class GameMaster : NetworkComponent
         if (flag == "WIN" && IsClient)
         {
             Win();
+        }
+        if (flag == "LOSE" && IsClient)
+        {
+            GameOver();
         }
     }
 
@@ -95,6 +99,23 @@ public class GameMaster : NetworkComponent
             {
                 SendUpdate("WIN", "");
             }
+        }
+    }
+
+    void GameOver()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("Lose");
+    }
+
+    public void PlayerDefeated() {
+        if (IsServer)
+        {
+            maxLives--;
+
+            if (maxLives <= 0)
+                SendUpdate("LOSE", "");
         }
     }
 
