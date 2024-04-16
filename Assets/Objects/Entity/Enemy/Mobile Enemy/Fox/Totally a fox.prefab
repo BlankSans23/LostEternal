@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 1474065517891444064}
   - component: {fileID: 8124320662071916571}
   - component: {fileID: 353812707026075361}
+  - component: {fileID: -2671993616432141994}
+  - component: {fileID: -2946436633273000561}
   m_Layer: 7
   m_Name: Totally a fox
   m_TagString: Untagged
@@ -203,6 +205,42 @@ MonoBehaviour:
   aggroTime: 3
   aggroRange: 10
   tails: []
+--- !u!95 &-2671993616432141994
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176203373961467730}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 015be63a20bfbdd45a1fb09851867bc3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2946436633273000561
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4176203373961467730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78777b4a708b0da458b333e81550d1ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
 --- !u!1001 &180197789990173228
 PrefabInstance:
   m_ObjectHideFlags: 0
