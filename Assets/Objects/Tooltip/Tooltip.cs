@@ -12,6 +12,8 @@ public class Tooltip : MonoBehaviour
     private void Update()
     {
         transform.forward = (Camera.main.transform.position - transform.position).normalized;
+        transform.forward -= transform.forward.y * Vector3.up;
+        transform.forward = transform.forward.normalized;
     }
 
     void OnTriggerStay(Collider other)

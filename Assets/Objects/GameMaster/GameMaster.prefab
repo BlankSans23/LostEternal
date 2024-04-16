@@ -68,6 +68,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  totalEnemies: 1
+  totalEnemies: 2
   enemiesDefeated: 0
+  maxLives: 1
   GameStarted: 0
