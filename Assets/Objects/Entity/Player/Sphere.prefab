@@ -259,7 +259,7 @@ MonoBehaviour:
   maxDownCameraRotation: 60
   maxUpCameraRotation: 40
   additionalGForce: 8
-  jumpForce: 40
+  jumpForce: 55
   lives: 3
   playerAnimator: {fileID: 0}
   playerNumber: 0
