@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/NetworkCore_5_3/NetworkEngine/TemplateAssets/Template_Scenes/WAN_Game.unity
     guid: 646d32d828b9ece4bae9613529fd952c
   - enabled: 1
-    path: Assets/NetworkCore_5_3/NetworkEngine/TemplateAssets/Template_Scenes/LANMenu.unity
-    guid: 1c15f2452767a5e44bbca5d7122dba90
+    path: Assets/NetworkCore_5_3/NetworkEngine/TemplateAssets/Template_Scenes/LANMenu2.unity
+    guid: 739d9b56a7ace9947825a8428b3398a0
   - enabled: 1
     path: Assets/Scenes/Win.unity
     guid: 5da62bca8fa22a248ade9d65a7335395
