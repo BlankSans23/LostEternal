@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 3041204845004039605}
   - component: {fileID: 3552914607760120454}
   - component: {fileID: -5911002144313445641}
+  - component: {fileID: -1912291766180399048}
   m_Layer: 0
   m_Name: Totally a Fish
   m_TagString: Untagged
@@ -226,3 +227,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1912291766180399048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608901734946012907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78777b4a708b0da458b333e81550d1ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MyCore: {fileID: 0}
+  MyId: {fileID: 0}
+  IsDirty: 0
