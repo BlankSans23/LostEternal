@@ -19,7 +19,6 @@ public class Player : Entity
     [SerializeField] float maxUpCameraRotation = 320f;
     [SerializeField] float additionalGForce = 4f;
     [SerializeField] float jumpForce = 100f;
-    [SerializeField] private int lives = 3; // Starting number of lives, adjust as needed
     public Animator playerAnimator; // Animator to control player animations?
 
 
@@ -155,10 +154,9 @@ public class Player : Entity
             }
         }
 
-        if (flag == "DIE")
+        if (flag == "RESPAWN")
         {
-            if (IsClient)
-                StartCoroutine(RespawnPlayer());
+           StartCoroutine(RespawnPlayer());
         }
 
     }
@@ -291,7 +289,6 @@ public class Player : Entity
         if (IsServer) 
         {
             GameObject.FindObjectOfType<GameMaster>().PlayerDefeated();
-            SendUpdate("DIE", "");
             StartCoroutine(RespawnPlayer()); // 5 seconds delay before respawning
         }
     }
@@ -304,6 +301,7 @@ public class Player : Entity
     IEnumerator RespawnPlayer()
     {
         if (IsServer) {
+            SendUpdate("RESPAWN", "");
             GetComponent<Collider>().enabled = false;
             float temp = additionalGForce;
             additionalGForce = 0;
@@ -319,8 +317,8 @@ public class Player : Entity
         {
             GetComponent<Renderer>().enabled = false;
             alive = false;
-            stats[StatType.HP] = respawnHP;
             yield return new WaitForSeconds(respawnDelay);
+            stats[StatType.HP] = respawnHP;
             GetComponent<Renderer>().enabled = true;
             alive = true;
         }
