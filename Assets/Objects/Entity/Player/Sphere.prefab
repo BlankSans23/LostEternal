@@ -260,8 +260,8 @@ MonoBehaviour:
   cameraOffset: {x: 0, y: 2, z: -3}
   maxDownCameraRotation: 60
   maxUpCameraRotation: 40
-  additionalGForce: 8
-  jumpForce: 55
+  additionalGForce: 13
+  jumpForce: 80
   lives: 3
   playerAnimator: {fileID: 0}
   playerNumber: 0

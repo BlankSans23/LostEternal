@@ -8,17 +8,15 @@ public class Tooltip : MonoBehaviour
 {
     [SerializeField] Image icon;
     [SerializeField] TextMeshProUGUI tooltipText;
-    Player p;
 
     private void Update()
     {
-        if (p != null)
-            transform.forward = (p.transform.position - transform.position).normalized;
+        transform.forward = (Camera.main.transform.position - transform.position).normalized;
     }
 
     void OnTriggerStay(Collider other)
     {
-        Player temp = p;
+        Player p;
         if (other.TryGetComponent<Player>(out p))
         {
             if (p.IsLocalPlayer)
@@ -26,16 +24,14 @@ public class Tooltip : MonoBehaviour
                 icon.enabled = true;
                 tooltipText.enabled = true;
             }
-            else
-                p = temp;
         }
     }
     void OnTriggerExit(Collider other)
     {
-        Player temp;
-        if (other.TryGetComponent<Player>(out temp))
+        Player p;
+        if (other.TryGetComponent<Player>(out p))
         {
-            if (temp.IsLocalPlayer)
+            if (p.IsLocalPlayer)
             {
                 icon.enabled = false;
                 tooltipText.enabled = false;

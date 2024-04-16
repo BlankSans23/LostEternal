@@ -205,6 +205,8 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
+        if (stats[StatType.HP] > respawnHP)
+            stats[StatType.HP] = respawnHP;
         //Camera code
         if (IsLocalPlayer)
         {
@@ -317,6 +319,7 @@ public class Player : Entity
         {
             GetComponent<Renderer>().enabled = false;
             alive = false;
+            stats[StatType.HP] = respawnHP;
             yield return new WaitForSeconds(respawnDelay);
             GetComponent<Renderer>().enabled = true;
             alive = true;
