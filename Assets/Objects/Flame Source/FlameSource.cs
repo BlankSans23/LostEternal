@@ -91,6 +91,17 @@ public class FlameSource : NetworkComponent
         }
     }
 
+    private void Update()
+    {
+        if (IsClient)
+        {
+            foreach (GameObject flame in flames)
+            {
+                flame.transform.GetChild(0).gameObject.SetActive(isLit);
+            }
+        }
+    }
+
     public void OnCollisionEnter(Collision other)
     {
         if (!IsServer)

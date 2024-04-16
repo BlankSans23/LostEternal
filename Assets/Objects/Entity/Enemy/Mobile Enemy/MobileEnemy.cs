@@ -6,6 +6,8 @@ using UnityEngine.AI;
 public class MobileEnemy : Enemy
 {
     protected NavMeshAgent myAgent;
+    [SerializeField] GameObject teleporter;
+    [SerializeField] float tpTime = 3f;
 
     private void Start()
     {
@@ -24,6 +26,18 @@ public class MobileEnemy : Enemy
     protected override void AI()
     {
         base.AI();
+    }
+
+    protected override void Die()
+    {
+        StartCoroutine(ActivateTP());
+        base.Die();
+    }
+
+    IEnumerator ActivateTP()
+    {
+        yield return new WaitForSeconds(tpTime);
+        teleporter.SetActive(true);
     }
 
     protected void Stop()
