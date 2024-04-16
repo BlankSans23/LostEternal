@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7492763647909120141}
   - component: {fileID: 3041204845004039605}
   - component: {fileID: 3552914607760120454}
+  - component: {fileID: -5911002144313445641}
   m_Layer: 0
   m_Name: Totally a Fish
   m_TagString: Untagged
@@ -81,6 +82,7 @@ MonoBehaviour:
   waterProjectile: {fileID: 0}
   topOfWaterfall: {fileID: 0}
   bottomOfWaterfall: {fileID: 0}
+  dragonLoadingZone: {fileID: 0}
   fallSpeed: 20
   climbSpeed: 1
 --- !u!23 &1633909686035769918
@@ -203,3 +205,24 @@ NavMeshAgent:
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!95 &-5911002144313445641
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6608901734946012907}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 272631171c2cb624cbeea478397fae09, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
