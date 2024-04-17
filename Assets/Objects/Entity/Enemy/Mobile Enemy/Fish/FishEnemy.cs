@@ -27,6 +27,19 @@ public class FishEnemy : MobileEnemy
         }
     }
 
+    public override void HandleMessage(string flag, string value)
+    {
+        base.HandleMessage(flag, value);
+
+        if (flag == "EVOLVE")
+        {
+            if (IsClient)
+            {
+                ChangeModel();
+            }
+        }
+    }
+
     protected override void SearchForPlayer()
     {
         base.SearchForPlayer();

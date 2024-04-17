@@ -46,7 +46,9 @@ public class FlameSource : NetworkComponent
     {
         for (int i = 0; i < transform.childCount; i++)
         {
-            flames.Add(transform.GetChild(i).gameObject);
+            ParticleSystem p;
+            if (transform.GetChild(i).TryGetComponent<ParticleSystem>(out p))
+                flames.Add(transform.GetChild(i).gameObject);
         }
     }
 

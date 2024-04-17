@@ -12,6 +12,8 @@ public class GeyserScript : NetworkComponent
     public float geyserTimeActive = 2f;
      bool geyserActive = false;
      bool geyserStart = false;
+    NetworkAnimator anim;
+
     public override void HandleMessage(string flag, string value)
     {
         //Send message for animating the geyser
@@ -37,10 +39,12 @@ public class GeyserScript : NetworkComponent
         //Start launch
         yield return new WaitForSeconds(geyserDelay);
         geyserActive = true;
+        anim.SetBool("Creaming", true);
 
         //Continue launch - then stop
         yield return new WaitForSeconds(geyserTimeActive);
         geyserActive = false;
+        anim.SetBool("Creaming", false);
 
         geyserStart = false;
     }
@@ -77,13 +81,9 @@ public class GeyserScript : NetworkComponent
         } 
     }
 
-
-
-
-    // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<NetworkAnimator>();
     }
 
     // Update is called once per frame

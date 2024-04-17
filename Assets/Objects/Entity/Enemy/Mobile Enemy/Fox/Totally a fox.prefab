@@ -204,6 +204,8 @@ MonoBehaviour:
   targetCooldown: 10
   aggroTime: 3
   aggroRange: 10
+  teleporter: {fileID: 0}
+  tpTime: 3
   tails: []
 --- !u!95 &-2671993616432141994
 Animator:
@@ -241,6 +243,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
+  anim: {fileID: 0}
 --- !u!1001 &180197789990173228
 PrefabInstance:
   m_ObjectHideFlags: 0

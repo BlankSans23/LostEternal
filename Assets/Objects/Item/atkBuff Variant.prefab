@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 534944530545538603, guid: 59445125d33cf2a4ba09654608d70e07, type: 3}
       propertyPath: buffAmount
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 534944530545538603, guid: 59445125d33cf2a4ba09654608d70e07, type: 3}
       propertyPath: increaseType

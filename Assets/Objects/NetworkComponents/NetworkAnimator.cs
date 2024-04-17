@@ -6,7 +6,7 @@ using NETWORK_ENGINE;
 [RequireComponent(typeof(Animator))]
 public class NetworkAnimator : NetworkComponent
 {
-    Animator anim;
+    [SerializeField] Animator anim;
 
     public override void HandleMessage(string flag, string value)
     {

@@ -119,4 +119,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   increaseType: 0
-  buffAmount: 0
+  buffAmount: 10
