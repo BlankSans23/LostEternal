@@ -19,7 +19,6 @@ public class Player : Entity
     [SerializeField] float maxUpCameraRotation = 320f;
     [SerializeField] float additionalGForce = 4f;
     [SerializeField] float jumpForce = 100f;
-    public Animator playerAnimator; // Animator to control player animations?
 
 
     [HideInInspector] public int playerNumber;

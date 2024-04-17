@@ -23,7 +23,7 @@ public class Entity : NetworkComponent, Damageable
 
     protected bool canAttack = true;
 
-    NetworkAnimator anim;
+    [SerializeField] protected NetworkAnimator anim;
 
     public override IEnumerator SlowUpdate()
     {
@@ -62,6 +62,7 @@ public class Entity : NetworkComponent, Damageable
     protected IEnumerator Attack() {
         if (IsServer && canAttack)
         {
+            anim.SetTrigger("Attack");
             StartCoroutine(AttackCooldown());
             yield return new WaitForSeconds(damageDelay);
             RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius,transform.forward, attackRadius, attackLayers);
