@@ -78,7 +78,17 @@ public class FlameSource : NetworkComponent
     public IEnumerator Extinguish() {
         isLit = false;
         GetComponent<Collider>().enabled = false;
-        GetComponent<Renderer>().enabled = false;
+        Renderer r;
+        if (TryGetComponent<Renderer>(out r))
+        {
+            r.enabled = false; 
+        }
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i).TryGetComponent<Renderer>(out r))
+                r.enabled = false;
+        }
+
         if (IsServer)
         {
             SendUpdate("EX", "");
