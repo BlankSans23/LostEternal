@@ -29,6 +29,7 @@ public class playerUI : MonoBehaviour
     }
 
     public void FindPlayer() {
+        GetComponent<Canvas>().enabled = true;
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in players)
