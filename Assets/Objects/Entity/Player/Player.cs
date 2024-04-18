@@ -98,7 +98,14 @@ public class Player : Entity
         if (flag == "ATK")
         {
             if (IsServer)
+            {
                 StartCoroutine(Attack());
+                SendUpdate("ATK", "");
+            }
+            if (IsClient)
+            {
+                StartCoroutine(ShowForTime(sword, 0.667f));
+            }
         }
 
         if (flag == "SHOOT")
@@ -112,6 +119,11 @@ public class Player : Entity
                 b.GetComponent<Projectile>().owner = gameObject;
                 Vector3 dir = NetworkCore.Vector3FromString(shootDetails[1]);
                 b.transform.forward = dir;
+                SendUpdate("SHOOT", "");
+            }
+            if (IsClient)
+            {
+                StartCoroutine(ShowForTime(gun, 0.333f));
             }
         }
 
@@ -456,6 +468,13 @@ public class Player : Entity
         bulletLoaded = false;
         yield return new WaitForSeconds(bulletCooldown);
         bulletLoaded = true;
+    }
+
+    IEnumerator ShowForTime(GameObject g, float time)
+    {
+        g.SetActive(true);
+        yield return new WaitForSeconds(time);
+        g.SetActive(false);
     }
 
 }
