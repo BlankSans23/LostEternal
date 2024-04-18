@@ -20,6 +20,9 @@ public class Entity : NetworkComponent, Damageable
     [SerializeField] float knockbackForce = 20f;
 
     [SerializeField] protected NetworkAnimator anim;
+    [SerializeField] NetworkAudioSource slash;
+    [SerializeField] NetworkAudioSource hurt;
+
 
     [SerializeField] protected Transform attackOrigin;
 
@@ -65,6 +68,7 @@ public class Entity : NetworkComponent, Damageable
             anim.SetTrigger("Attack");
             StartCoroutine(AttackCooldown());
             yield return new WaitForSeconds(damageDelay);
+            slash.Play();
             RaycastHit[] hits = Physics.SphereCastAll(attackOrigin.position, attackRadius,transform.forward, attackRadius, attackLayers);
             foreach (RaycastHit hit in hits)
             {                
@@ -101,6 +105,7 @@ public class Entity : NetworkComponent, Damageable
             if (!invincible)
             {
                 anim.SetTrigger("Hurt");
+                hurt.Play();
                 if (atkStrength > stats[StatType.DEF])
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
                 else
