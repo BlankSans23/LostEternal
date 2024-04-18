@@ -202,6 +202,7 @@ MonoBehaviour:
     - Signs have feelings too you know!
     - Fine I won't tell you bullets only distract enemies.
     - Baka!
+  disableAfterTrigger: 0
 --- !u!1 &3511785469083658758
 GameObject:
   m_ObjectHideFlags: 0

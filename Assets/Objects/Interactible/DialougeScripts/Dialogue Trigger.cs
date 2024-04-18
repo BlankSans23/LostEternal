@@ -5,7 +5,9 @@ using UnityEngine;
 public class DialogueTrigger : MonoBehaviour, Interactable
 {
     public Dialogue dialogue;
+    public bool disableAfterTrigger = false;
     Animator anim;
+    bool activeDialogue = true;
 
     /*public void Interact(Entity source)
     {
@@ -17,7 +19,10 @@ public class DialogueTrigger : MonoBehaviour, Interactable
         // Call the TriggerDialogue method to start the dialogue when interacted with
         if(source.IsLocalPlayer)
         {
-            TriggerDialogue();
+            if (activeDialogue)
+                TriggerDialogue();
+            if (disableAfterTrigger)
+                activeDialogue = false;
         }
     }
 

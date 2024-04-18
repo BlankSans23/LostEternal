@@ -92,8 +92,8 @@ MonoBehaviour:
   topOfWaterfall: {fileID: 0}
   bottomOfWaterfall: {fileID: 0}
   dragonLoadingZone: {fileID: 0}
-  fallSpeed: 4
-  climbSpeed: 1
+  fallSpeed: 6
+  climbSpeed: 2
 --- !u!23 &1633909686035769918
 MeshRenderer:
   m_ObjectHideFlags: 0
