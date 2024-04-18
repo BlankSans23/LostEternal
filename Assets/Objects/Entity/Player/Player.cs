@@ -99,8 +99,9 @@ public class Player : Entity
         {
             if (IsServer)
             {
+                if (canAttack)
+                    SendUpdate("ATK", "");
                 StartCoroutine(Attack());
-                SendUpdate("ATK", "");
             }
             if (IsClient)
             {
