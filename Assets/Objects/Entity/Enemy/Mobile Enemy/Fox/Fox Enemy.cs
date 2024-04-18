@@ -12,7 +12,9 @@ public class FoxEnemy : MobileEnemy
         base.NetworkedStart();
         for (int i = 0; i < transform.childCount; i++)
         {
-            tails.Add(transform.GetChild(i).GetComponent<FlameSource>());
+            FlameSource f;
+            if (transform.GetChild(i).TryGetComponent<FlameSource>(out f))
+                tails.Add(f);
         }
     }
 
