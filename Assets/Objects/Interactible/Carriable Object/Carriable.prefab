@@ -132,7 +132,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  offset: {x: 0, y: 3.4, z: 1.1}
+  offset: {x: 0, y: 3.4, z: 2}
   throwForce: 15
 --- !u!54 &9026693264649860290
 Rigidbody:
