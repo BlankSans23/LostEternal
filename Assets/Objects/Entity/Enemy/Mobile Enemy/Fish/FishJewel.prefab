@@ -139,11 +139,12 @@ MonoBehaviour:
   death: {fileID: 7379602943957833707}
   dragonLoadingZone: {fileID: 0}
   tpLocation: {fileID: 0}
-  tpRadius: 250
+  tpRadius: 50
   fireballSpawnLocations:
   - {fileID: 5897851863264290892}
   - {fileID: 8234973306367840565}
   - {fileID: 5399889679079993794}
+  fireballCooldown: 1.5
 --- !u!65 &4100447128307123854
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -250,6 +250,11 @@ public class Player : Entity
     {
         if (IsServer)
         {
+            if (!alive)
+            {
+                moveDir = Vector3.zero;
+                myRig.AddForce(-myRig.GetAccumulatedForce());
+            }
 
             myRig.AddForce(transform.forward * moveDir.z * speed);
             myRig.AddForce(transform.right * moveDir.x * speed);
@@ -313,6 +318,7 @@ public class Player : Entity
 
     IEnumerator RespawnPlayer()
     {
+        alive = false;
         if (IsServer) {
             SendUpdate("RESPAWN", "");
             GetComponent<Collider>().enabled = false;
@@ -329,12 +335,12 @@ public class Player : Entity
         if (IsClient)
         {
             transform.GetChild(0).gameObject.SetActive(false);
-            alive = false;
             yield return new WaitForSeconds(respawnDelay);
             stats[StatType.HP] = respawnHP;
             transform.GetChild(0).gameObject.SetActive(true);
-            alive = true;
+            
         }
+        alive = true;
 
     }
 

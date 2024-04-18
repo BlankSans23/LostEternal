@@ -146,7 +146,7 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   speed: 800
-  lifeTime: 20
+  lifeTime: 1.3
   owner: {fileID: 0}
 --- !u!54 &1680210999514350337
 Rigidbody:
