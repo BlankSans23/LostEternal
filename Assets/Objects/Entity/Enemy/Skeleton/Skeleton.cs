@@ -44,7 +44,10 @@ public class Skeleton : Enemy
         }
         if (IsClient && p != null)
         {
-            p.GetComponent<Renderer>().enabled = false;
+            for (int i = 0; i < p.transform.childCount; i++)
+            {
+                p.transform.GetChild(i).gameObject.SetActive(false);
+            }
             p.GetComponent<ParticleSystem>().Play();
         }
 

@@ -42,6 +42,7 @@ public class Player : Entity
     [HideInInspector] public bool bulletLoaded = true;
     float currentRotation = 0;
     bool alive = true;
+    float moveAnimSpeed = 0;
 
 
     public override void HandleMessage(string flag, string value)
@@ -57,7 +58,8 @@ public class Player : Entity
         if (flag == "COLOR")
         {
             playerNumber = int.Parse(value);
-            GetComponent<MeshRenderer>().material = playerColors[playerNumber];
+            transform.GetChild(0).GetChild(3).GetComponent<SkinnedMeshRenderer>().material = playerColors[playerNumber];
+            transform.GetChild(0).GetChild(4).GetComponent<SkinnedMeshRenderer>().material = playerColors[playerNumber];
         }
 
         if (flag == "MOV")
@@ -103,7 +105,7 @@ public class Player : Entity
         {
             if (IsServer)
             {
-                Debug.Log(value);
+                anim.SetTrigger("Shoot");
                 string[] shootDetails = value.Split('|');
                 Vector3 pos = NetworkCore.Vector3FromString(shootDetails[0]);
                 GameObject b = MyCore.NetCreateObject(4, Owner, pos);
@@ -133,7 +135,10 @@ public class Player : Entity
                 Jumped = bool.Parse(value);
             }*/
             if (IsServer)
+            {
+                anim.SetTrigger("Jump");
                 myRig.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
         }
 
         if (flag == "INTERACT")
@@ -245,10 +250,19 @@ public class Player : Entity
     {
         if (IsServer)
         {
+
             myRig.AddForce(transform.forward * moveDir.z * speed);
             myRig.AddForce(transform.right * moveDir.x * speed);
             if (moveDir == Vector3.zero)
+            {
+                moveAnimSpeed = 0;
                 myRig.velocity = Vector3.zero + (Vector3.up * myRig.velocity.y);
+            }
+            else
+            {
+                moveAnimSpeed = Mathf.Lerp(moveAnimSpeed, 6.1f, 0.3f);
+            }
+            anim.SetFloat("speed", moveAnimSpeed);
 
             //Gravity
             myRig.AddForce(-(additionalGForce * myRig.drag - 1f) * Vector3.up);
@@ -314,11 +328,11 @@ public class Player : Entity
         }
         if (IsClient)
         {
-            GetComponent<Renderer>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
             alive = false;
             yield return new WaitForSeconds(respawnDelay);
             stats[StatType.HP] = respawnHP;
-            GetComponent<Renderer>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
             alive = true;
         }
 

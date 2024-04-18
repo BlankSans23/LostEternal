@@ -19,11 +19,11 @@ public class Entity : NetworkComponent, Damageable
     [SerializeField] float iFrameLength = 0.3f;
     [SerializeField] float knockbackForce = 20f;
 
+    [SerializeField] protected NetworkAnimator anim;
+
     [SerializeField] protected Transform attackOrigin;
 
     protected bool canAttack = true;
-
-    [SerializeField] protected NetworkAnimator anim;
 
     public override IEnumerator SlowUpdate()
     {
@@ -100,6 +100,7 @@ public class Entity : NetworkComponent, Damageable
         {
             if (!invincible)
             {
+                anim.SetTrigger("Hurt");
                 if (atkStrength > stats[StatType.DEF])
                     stats[StatType.HP] -= atkStrength - stats[StatType.DEF];
                 else

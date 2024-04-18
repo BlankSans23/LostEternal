@@ -76,10 +76,13 @@ MonoBehaviour:
   invincible: 0
   iFrameLength: 0.3
   knockbackForce: 20
+  anim: {fileID: -1912291766180399048}
   attackOrigin: {fileID: 8218735924322416245}
   targetCooldown: 10
   aggroTime: 3
   aggroRange: 30
+  teleporter: {fileID: 0}
+  tpTime: 3
   waterProjectile: {fileID: 0}
   topOfWaterfall: {fileID: 0}
   bottomOfWaterfall: {fileID: 0}
@@ -242,3 +245,4 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
+  anim: {fileID: 0}
