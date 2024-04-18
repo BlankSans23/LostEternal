@@ -37,7 +37,7 @@ public class Player : Entity
     Vector2 input;
     Vector2 mouseInput;
 
-    [HideInInspector] public float bulletCooldown = 6f;
+    public float bulletCooldown = 6f;
     float score;
     [HideInInspector] public bool bulletLoaded = true;
     float currentRotation = 0;

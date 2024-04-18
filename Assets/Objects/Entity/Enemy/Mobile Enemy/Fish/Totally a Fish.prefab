@@ -84,7 +84,7 @@ MonoBehaviour:
   hurt: {fileID: 7074034064953422311}
   attackOrigin: {fileID: 8218735924322416245}
   targetCooldown: 10
-  aggroTime: 3
+  aggroTime: 6
   aggroRange: 30
   teleporter: {fileID: 0}
   tpTime: 3

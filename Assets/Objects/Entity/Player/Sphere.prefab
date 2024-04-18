@@ -261,7 +261,7 @@ MonoBehaviour:
   gun: {fileID: 6546824630732763110}
   atkBuff: {fileID: 0}
   defBuff: {fileID: 0}
-  bulletCooldown: 6
+  bulletCooldown: 12
   bulletLoaded: 1
 --- !u!114 &2516945214404157200
 MonoBehaviour:
