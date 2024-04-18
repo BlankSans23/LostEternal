@@ -144,7 +144,7 @@ MonoBehaviour:
   MyCore: {fileID: 0}
   MyId: {fileID: 0}
   IsDirty: 0
-  speed: 400
+  speed: 800
   lifeTime: 2
   owner: {fileID: 0}
 --- !u!54 &1680210999514350337
