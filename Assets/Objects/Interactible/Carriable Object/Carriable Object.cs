@@ -22,6 +22,9 @@ public class CarriableObject : NetworkComponent, Interactable
         {
             if (!IsPickedUp)
             {
+                if (IsLocalPlayer) {
+                    gameObject.transform.GetChild(0).gameObject.SetActive(false);
+                }
                 carrier = source;
                 IsPickedUp = true;
                 transform.SetParent(source.gameObject.transform);
@@ -32,6 +35,10 @@ public class CarriableObject : NetworkComponent, Interactable
 
             else if (IsPickedUp && source == carrier)
             {
+                if (IsLocalPlayer)
+                {
+                    gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                }
                 transform.SetParent(null, true);
                 rb.isKinematic = false;
                 rb.AddForce(throwForce * source.transform.forward, ForceMode.Impulse);
