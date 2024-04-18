@@ -177,7 +177,7 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   stats:
-    stats: 0a0000000400000001000000
+    stats: 0a0000000600000001000000
   speed: 150
   rotSpeed: 1
   attackLayers:
@@ -255,8 +255,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2, z: 4}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.5, y: 3, z: 4}
+  m_Center: {x: 0.1, y: 0.5, z: 0}
 --- !u!114 &171187210976602829
 MonoBehaviour:
   m_ObjectHideFlags: 0

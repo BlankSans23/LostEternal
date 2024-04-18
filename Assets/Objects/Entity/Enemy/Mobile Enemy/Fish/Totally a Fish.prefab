@@ -67,7 +67,7 @@ MonoBehaviour:
   MyId: {fileID: 0}
   IsDirty: 0
   stats:
-    stats: 010000001400000001000000
+    stats: 1e0000000a00000002000000
   speed: 150
   rotSpeed: 1
   attackLayers:
