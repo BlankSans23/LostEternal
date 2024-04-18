@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioTrigger : MonoBehaviour
 {
-    [SerializeField] AudioSource bgm;
-    [SerializeField] AudioSource triggeredMusic;
+    AudioSource triggeredMusic;
+
+    private void Start()
+    {
+        triggeredMusic = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            bgm.Stop();
             triggeredMusic.Play();
         }
     }
@@ -20,7 +24,6 @@ public class AudioTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            bgm.Play();
             triggeredMusic.Stop();
         }
     }

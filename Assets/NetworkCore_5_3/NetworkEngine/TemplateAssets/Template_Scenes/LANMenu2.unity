@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -624,6 +624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 31909187}
   - component: {fileID: 31909186}
+  - component: {fileID: 31909188}
   - component: {fileID: 31909185}
   m_Layer: 0
   m_Name: skeletonBGM
@@ -664,7 +665,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e1b1a6740cc5e0049bdf4a43089c43e3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -758,12 +759,24 @@ Transform:
   m_GameObject: {fileID: 31909184}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.5156856, z: -0, w: 0.8567779}
-  m_LocalPosition: {x: -95, y: 22.3, z: 15.6}
+  m_LocalPosition: {x: -89.8, y: 22.3, z: 12.9}
   m_LocalScale: {x: 6, y: 5, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -62.087, z: 0}
+--- !u!114 &31909188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 31909184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &33109812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7453,6 +7466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 842490311}
   - component: {fileID: 842490310}
+  - component: {fileID: 842490312}
   - component: {fileID: 842490309}
   m_Layer: 0
   m_Name: villageBGM
@@ -7493,7 +7507,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 488c94ac2cb0efc40b92e7a3d3ca4356, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -7587,12 +7601,24 @@ Transform:
   m_GameObject: {fileID: 842490308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.15437956, z: -0, w: 0.98801166}
-  m_LocalPosition: {x: -112, y: 46.1, z: 72.5}
+  m_LocalPosition: {x: -116.1, y: 33.8, z: 85.5}
   m_LocalScale: {x: 15, y: 5, z: 8}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -17.762, z: 0}
+--- !u!114 &842490312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 842490308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &843418604
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10708,6 +10734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1292442600}
   - component: {fileID: 1292442599}
+  - component: {fileID: 1292442601}
   - component: {fileID: 1292442598}
   m_Layer: 0
   m_Name: foxBGM
@@ -10748,7 +10775,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e1b1a6740cc5e0049bdf4a43089c43e3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -10848,6 +10875,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 29.825, z: 0}
+--- !u!114 &1292442601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1292442597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1312236517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12029,6 +12068,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1447276125}
   - component: {fileID: 1447276124}
+  - component: {fileID: 1447276126}
   - component: {fileID: 1447276123}
   m_Layer: 0
   m_Name: dragonBGM
@@ -12069,7 +12109,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d3f8a96b10708984d9a39feb48effeaa, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -12169,6 +12209,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 1.39, z: 0}
+--- !u!114 &1447276126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1447276122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1456936850
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14171,6 +14223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1631410052}
   - component: {fileID: 1631410051}
+  - component: {fileID: 1631410053}
   - component: {fileID: 1631410050}
   m_Layer: 0
   m_Name: fishBGM
@@ -14211,7 +14264,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e1b1a6740cc5e0049bdf4a43089c43e3, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -14311,6 +14364,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -30.682, z: 0}
+--- !u!114 &1631410053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631410049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1633644609
 GameObject:
   m_ObjectHideFlags: 0
@@ -14742,6 +14807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1731015430}
   - component: {fileID: 1731015429}
+  - component: {fileID: 1731015431}
   - component: {fileID: 1731015428}
   m_Layer: 0
   m_Name: beachBGM
@@ -14782,7 +14848,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 229db24bd19b8974da28dcfa5c13338d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -14882,6 +14948,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -57.388, z: 0}
+--- !u!114 &1731015431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1731015427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a59faec639c63d43b28cdc461c0dcd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1739300896
 GameObject:
   m_ObjectHideFlags: 0
