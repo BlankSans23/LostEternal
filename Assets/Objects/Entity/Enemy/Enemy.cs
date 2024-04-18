@@ -98,7 +98,7 @@ public class Enemy : Entity
         }
         if (IsClient)
         {
-            GetComponent<Renderer>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
         }
         this.enabled = false;
     }

@@ -319,6 +319,18 @@ PrefabInstance:
       propertyPath: m_text
       value: Pick Up
       objectReference: {fileID: 0}
+    - target: {fileID: 5374683690088572429, guid: 52473641971a26d4ca57775389a0217b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8029185925309810580, guid: 52473641971a26d4ca57775389a0217b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8029185925309810580, guid: 52473641971a26d4ca57775389a0217b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8029185925309810580, guid: 52473641971a26d4ca57775389a0217b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.3

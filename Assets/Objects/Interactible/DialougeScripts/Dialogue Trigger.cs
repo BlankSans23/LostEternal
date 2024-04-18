@@ -26,8 +26,11 @@ public class DialogueTrigger : MonoBehaviour, Interactable
     public void TriggerDialogue()
     {
        FindObjectOfType<DialogueManagers>().StartedDialogue(dialogue);
-       
-    
+
+       if (TryGetComponent<Animator>(out anim))
+        {
+            anim.SetTrigger("Converse");
+        }
     }
 
 

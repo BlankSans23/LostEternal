@@ -17,6 +17,7 @@ public class MobileEnemy : Enemy
     protected void ChasePlayer(Vector3 chaseTarget) { 
         if (IsServer)
         {
+            anim.SetFloat("speed", 2);
             myAgent.destination = chaseTarget;
             myAgent.isStopped = false;
         }
@@ -44,6 +45,7 @@ public class MobileEnemy : Enemy
     {
         if (IsServer)
         {
+            anim.SetFloat("speed", 0);
             myAgent.isStopped = true;
         }
     }

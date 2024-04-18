@@ -25,7 +25,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _HighIntensity: 8.25
     - _LightScalar: 3.13
+    - _LowIntensity: 5.11
     - _OutlineSize: 60
     - _RampLevels: 4
     m_Colors:

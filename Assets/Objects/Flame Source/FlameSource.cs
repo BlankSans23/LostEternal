@@ -44,11 +44,10 @@ public class FlameSource : NetworkComponent
     // Start is called before the first frame update
     void Start()
     {
-        for (int i = 0; i < transform.childCount; i++)
+        ParticleSystem[] temp = GetComponentsInChildren<ParticleSystem>();
+        foreach (ParticleSystem p in temp)
         {
-            ParticleSystem p;
-            if (transform.GetChild(i).TryGetComponent<ParticleSystem>(out p))
-                flames.Add(transform.GetChild(i).gameObject);
+            flames.Add(p.gameObject);
         }
     }
 
@@ -87,6 +86,10 @@ public class FlameSource : NetworkComponent
         {
             if (transform.GetChild(i).TryGetComponent<Renderer>(out r))
                 r.enabled = false;
+            Tooltip t;
+            if (transform.GetChild(i).TryGetComponent<Tooltip>(out t)) {
+                t.gameObject.SetActive(false);
+            }
         }
 
         if (IsServer)

@@ -113,7 +113,7 @@ public class FishEnemy : MobileEnemy
         }
         if (IsClient)
         {
-            GetComponent<Renderer>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 }
