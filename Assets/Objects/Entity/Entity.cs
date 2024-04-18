@@ -20,8 +20,8 @@ public class Entity : NetworkComponent, Damageable
     [SerializeField] float knockbackForce = 20f;
 
     [SerializeField] protected NetworkAnimator anim;
-    [SerializeField] NetworkAudioSource slash;
-    [SerializeField] NetworkAudioSource hurt;
+    [SerializeField] protected NetworkAudioSource slash;
+    public NetworkAudioSource hurt;
 
 
     [SerializeField] protected Transform attackOrigin;

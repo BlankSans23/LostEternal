@@ -14,6 +14,7 @@ public class SkeletonPiece : MonoBehaviour, Damageable
 
     public void Damage(int atkStrength, Transform e = null) {
         hp--;
+        boss.hurt.Play();
 
         if (hp <= 0)
             boss.Damage(atkStrength);
