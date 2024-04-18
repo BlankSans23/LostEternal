@@ -14,7 +14,8 @@ public class AudioTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        Player p;
+        if (other.TryGetComponent<Player>(out p) && p.IsLocalPlayer)
         {
             triggeredMusic.Play();
         }
@@ -22,7 +23,8 @@ public class AudioTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        Player p;
+        if (other.TryGetComponent<Player>(out p) && p.IsLocalPlayer)
         {
             triggeredMusic.Stop();
         }
