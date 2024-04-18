@@ -12,25 +12,47 @@ public class NetworkAudioSource : NetworkComponent
     [SerializeField] AudioSource aSource;
 
     //These are solely for reading time and volume;
-    float playTime;
+    float playTime = 0;
     float playVolume;
+    bool playing;
 
     public override void HandleMessage(string flag, string value)
     {
         if (IsClient)
         {
             if (flag == "PLAY")
-                aSource.Play();
+            {
+                if (isPlaying)
+                    playTime = 0;
+                playing = true;
+
+                if (IsClient)
+                    aSource.Play();
+            }
 
             if (flag == "PAUSE")
-                aSource.Pause();
+            {
+                playing = false;
+
+                if (IsClient)
+                    aSource.Pause();
+            }
 
             if (flag == "STOP")
-                aSource.Stop();
+            {
+                playing = false;
+                playTime = 0;
+
+                if (IsClient)
+                    aSource.Stop();
+            }
         }
 
         if (flag == "TIME")
+        {
             aSource.time = float.Parse(value);
+            playTime = float.Parse(value);
+        }
 
         //NOTE: VOLUME WILL BE SYNCED ON ALL CLIENTS THIS IS MEANT FOR SYNCED SFX
         if (flag == "VOL")
@@ -48,19 +70,30 @@ public class NetworkAudioSource : NetworkComponent
 
     public override IEnumerator SlowUpdate()
     {
-        yield return new WaitForSeconds(MyId.UpdateFrequency);
+        while (IsServer)
+        {
+            if (IsDirty)
+            {
+                time = time;
+                IsDirty = false;
+            }
+            yield return new WaitForSeconds(MyId.UpdateFrequency);
+        }
     }
 
     void Start()
     {
         if (aSource == null)
             aSource = GetComponent<AudioSource>();
+        playing = aSource.isPlaying;
     }
 
     void Update()
     {
-        playTime = aSource.time;
         playVolume = aSource.volume;
+
+        if (isPlaying)
+            playTime += Time.deltaTime;
     }
 
     //Sends the data regardless of origin, cancels Towle's separation
@@ -76,16 +109,31 @@ public class NetworkAudioSource : NetworkComponent
     #region AUDIO_SOURCE_CALLS
     public void Play()
     {
+        if (IsServer)
+        {
+            if (isPlaying)
+                playTime = 0;
+            playing = true;
+        }
+
         SendFullUpdate("PLAY", "");
     }
 
     public void Pause()
     {
+        if (IsServer)
+            playing = false;
+
         SendFullUpdate("PAUSE", "");
     }
 
     public void Stop()
     {
+        if (IsServer)
+        {
+            playing = false;
+            playTime = 0;
+        }
         SendFullUpdate("STOP", "");
     }
 
@@ -98,8 +146,19 @@ public class NetworkAudioSource : NetworkComponent
         set
         {
             if (IsServer)
+            {
                 aSource.time = value;
+                playTime = value;
+            }
             SendFullUpdate("TIME", value.ToString());
+        }
+    }
+
+    public bool isPlaying
+    {
+        get
+        {
+            return playing;
         }
     }
 
