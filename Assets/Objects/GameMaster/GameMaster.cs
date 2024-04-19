@@ -84,6 +84,7 @@ public class GameMaster : NetworkComponent
         }
         yield return new WaitForSeconds(2.5f);
         SendUpdate("STARTGAME", "");
+        MyCore.NotifyGameStart();
     }
     // Start is called before the first frame update
     void Start()
@@ -112,6 +113,7 @@ public class GameMaster : NetworkComponent
             enemiesDefeated++;
             if (enemiesDefeated >= totalEnemies)
             {
+                StartCoroutine(waitDC());
                 SendUpdate("WIN", "");
             }
         }
@@ -135,9 +137,17 @@ public class GameMaster : NetworkComponent
         {
             maxLives--;
 
-            if (maxLives <= 0)
+            if (maxLives <= 0) {
+                StartCoroutine(waitDC());
                 SendUpdate("LOSE", "");
+
+            }
         }
+    }
+
+    IEnumerator waitDC() {
+        yield return new WaitForSeconds(3f);
+        MyCore.DisconnectServer();
     }
 
 }
