@@ -147,7 +147,7 @@ public class GameMaster : NetworkComponent
 
     IEnumerator waitDC() {
         yield return new WaitForSeconds(3f);
-        MyCore.DisconnectServer();
+        StartCoroutine(MyCore.DisconnectServer());
     }
 
 }
