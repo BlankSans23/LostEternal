@@ -304,6 +304,10 @@ public class Player : Entity
                 MyCore.NetDestroyObject(p.MyId.NetId);
             }
         }
+        if (IsClient && collision.gameObject.layer == 8)
+        {
+            anim.SetTrigger("Land");
+        }
     }
 
     new public void OnDrawGizmos()
