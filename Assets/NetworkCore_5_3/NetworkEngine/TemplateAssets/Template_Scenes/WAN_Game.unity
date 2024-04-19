@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 15955491}
   m_Direction: 0
   m_Value: 0
-  m_Size: 0.99999994
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2166,7 +2166,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 378318157}
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -11039,11 +11039,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_AnchorMin.x
@@ -11055,23 +11055,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 896.39996
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 458.8
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2.1419013
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 2.1419013
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.1419013
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11103,11 +11103,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 960.0001
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 491.3521
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -11120,6 +11120,10 @@ PrefabInstance:
     - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5585806224394373051, guid: 183ac628dbbcc81419abd1eaf22dc8e0, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16488,8 +16492,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.49606222
-  m_Size: 0.9996336
+  m_Value: 0.49616143
+  m_Size: 0.99963355
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -21687,7 +21691,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
   m_Value: 0.5
-  m_Size: 0.08558394
+  m_Size: 0.0897317
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
