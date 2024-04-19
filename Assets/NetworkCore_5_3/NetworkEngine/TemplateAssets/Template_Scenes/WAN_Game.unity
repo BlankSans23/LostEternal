@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.4964127, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -815,7 +815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00007143567}
+  m_AnchoredPosition: {x: 0, y: 0.00024872576}
   m_SizeDelta: {x: 0, y: 810.43}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &68152915
@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 15955491}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2167,7 +2167,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99963874
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -16410,8 +16410,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.49625984
-  m_Size: 0.99963355
+  m_Value: 0.49616066
+  m_Size: 0.9996336
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -21609,7 +21609,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
   m_Value: 0.5
-  m_Size: 0.089708604
+  m_Size: 0.099225745
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -23050,7 +23050,7 @@ MonoBehaviour:
   IsConnected: 0
   AppNumber: 0
   conCounter: 0
-  IP: 127.0.01
+  IP: 10.200.208.187
   PortNumber: 0
   MaxConnections: 4
   MasterTimer: 0.05
@@ -23143,8 +23143,8 @@ MonoBehaviour:
   - {fileID: 4865837064771472416, guid: 4dab6f0624af7e64c98ebfb249fef617, type: 3}
   NetworkPlayerManager: {fileID: 7124888953299117985, guid: aa91568026d4b66408ee390ed8c99ee3, type: 3}
   DefaultReturnScene: 0
-  publicIPAddress: 127.0.0.1
-  privateIPAddress: 127.0.0.1
+  publicIPAddress: 23.128.112.68
+  privateIPAddress: 10.200.208.187
   portMininimum: 9001
   portMaxinimum: 10000
   isGameServer: 0
