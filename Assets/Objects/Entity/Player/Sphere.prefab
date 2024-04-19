@@ -248,7 +248,7 @@ MonoBehaviour:
   maxDownCameraRotation: 60
   maxUpCameraRotation: 40
   additionalGForce: 13
-  jumpForce: 160
+  jumpForce: 120
   playerNumber: 0
   pName: 
   playerColors:
