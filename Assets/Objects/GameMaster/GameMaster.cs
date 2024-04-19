@@ -60,6 +60,7 @@ public class GameMaster : NetworkComponent
                 if (playersReady && !GameStarted)
                 {
                     loadScreen.FadeOut();
+                    yield return new WaitForSeconds(1.1f);
                     for (int p = players.Length - 1; p >= 0; p--)
                     {
                         GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
