@@ -236,7 +236,7 @@ public class LobbyAgentManager : NetworkComponent
 
     public IEnumerator slowProcessKill()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1f);
         Application.Quit();
     }
 }
