@@ -422,6 +422,7 @@ public class NetworkCore     : GenericCore_Web
     public void StopListening()
     {
         IsListening = false;
+        wss.Stop();
     }
 
 
