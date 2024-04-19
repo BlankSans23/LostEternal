@@ -29,6 +29,11 @@ public class GameMaster : NetworkComponent
             }
         }
 
+        if (flag == "FADE" && IsClient)
+        {
+            loadScreen.FadeOut();
+        }
+
         if (flag == "WIN" && IsClient)
         {
             Win();
@@ -59,8 +64,7 @@ public class GameMaster : NetworkComponent
                 }
                 if (playersReady && !GameStarted)
                 {
-                    loadScreen.FadeOut();
-                    yield return new WaitForSeconds(1.1f);
+                    SendUpdate("FADE", "");
                     for (int p = players.Length - 1; p >= 0; p--)
                     {
                         GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
@@ -69,6 +73,7 @@ public class GameMaster : NetworkComponent
                         maxLives++;
                     }
                     GameStarted = true;
+                    yield return new WaitForSeconds(1.1f);
                     SendUpdate("STARTGAME", "");
                 }
             }
