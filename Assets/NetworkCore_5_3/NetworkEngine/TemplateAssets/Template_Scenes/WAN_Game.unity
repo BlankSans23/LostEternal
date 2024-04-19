@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 15955492}
   m_HandleRect: {fileID: 15955491}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1363,7 +1363,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 378318156}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.99700457
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -15592,8 +15592,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1658902906}
   m_HandleRect: {fileID: 1658902905}
   m_Direction: 0
-  m_Value: 0.49655512
-  m_Size: 0.99963355
+  m_Value: 0.49635756
+  m_Size: 0.9996336
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -21503,7 +21503,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1904947441}
   m_Direction: 2
   m_Value: 0.5
-  m_Size: 0.08187419
+  m_Size: 0.08309396
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -22834,7 +22834,23 @@ MonoBehaviour:
   UseMenuManager: 0
   DisconnectScreen: {fileID: 0}
   ObjectCounter: 0
-  SpawnPrefab: []
+  SpawnPrefab:
+  - {fileID: 881605711571477003, guid: 93cd6d4708a132848a86ea0a474c1fac, type: 3}
+  - {fileID: 3581400264138613353, guid: 19a28ce4f75d5d54fa93eb605624bcaa, type: 3}
+  - {fileID: 3356564757338769133, guid: fba5e12987aa77546a4130ead3e5dfa4, type: 3}
+  - {fileID: 6859146242941136907, guid: 58896bd737cf5464592fda8368b6dccd, type: 3}
+  - {fileID: 979436562412117007, guid: 2e30d6c4671f5d24cb8ac76ddd887226, type: 3}
+  - {fileID: 1474065517891444064, guid: 014645ba9787b9a46b0ae6a0a1103f3d, type: 3}
+  - {fileID: 8133775962822753118, guid: 44129475ce96d4d4aa1fec014b751d72, type: 3}
+  - {fileID: 5477734033780792328, guid: 6c174092caa9f9c4fa9ee83ad232f01e, type: 3}
+  - {fileID: 6768362159571878969, guid: 1fea2ca48219ea54fa8ffa7c0f6fd4d6, type: 3}
+  - {fileID: 3041204845004039605, guid: 7b313078bb6207e43b758ce17df613bb, type: 3}
+  - {fileID: 979436562412117007, guid: 4329a5320b8d6864ab9a7df4c3e75600, type: 3}
+  - {fileID: 3382342702449865160, guid: 35221072057ea53458f60e5edc85c4d0, type: 3}
+  - {fileID: 8229046976257895403, guid: 863b8027460c91347be96349e363a5ae, type: 3}
+  - {fileID: 979436562412117007, guid: 31ad4e148dfb1d74aa689114b0b9c95d, type: 3}
+  - {fileID: 6080092227427678361, guid: 4d347889c8de4f74fa30db5748d6259b, type: 3}
+  - {fileID: 4865837064771472416, guid: 4dab6f0624af7e64c98ebfb249fef617, type: 3}
   NetworkPlayerManager: {fileID: 5250556402926598917, guid: 0816eb0432e39d54396168934ebf0a59, type: 3}
   DefaultReturnScene: 0
 --- !u!4 &2124650040
