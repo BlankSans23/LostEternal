@@ -28,17 +28,23 @@ public class MainMenuController : MonoBehaviour
     public void WANConnect()
     {
         //Load Wan scene.
-        SceneManager.LoadScene(1);
+        StartCoroutine(LoadScene(1));
     }
 
     public void LANConnect()
     {
         //Load Lan Scene;
-        SceneManager.LoadScene(2);
+        StartCoroutine(LoadScene(2));
     }
 
     public void QuitMe()
     {
         Application.Quit();
+    }
+
+    IEnumerator LoadScene(int scene)
+    {
+        yield return new WaitForSeconds(1.1f);
+        SceneManager.LoadScene(scene);
     }
 }

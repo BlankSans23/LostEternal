@@ -10,6 +10,7 @@ public class GameMaster : NetworkComponent
 
     [SerializeField] int enemiesDefeated = 0;
     [SerializeField] int maxLives = 1; //incremented by total players
+    [SerializeField] SceneTransition loadScreen;
 
     GameObject playerUI;
 
@@ -24,6 +25,7 @@ public class GameMaster : NetworkComponent
             {
                 GameObject.FindGameObjectWithTag("ReadyUp").transform.parent.gameObject.GetComponent<Canvas>().enabled = false;
                 playerUI.GetComponent<Canvas>().enabled = true;
+                loadScreen.FadeIn();
             }
         }
 
@@ -57,6 +59,7 @@ public class GameMaster : NetworkComponent
                 }
                 if (playersReady && !GameStarted)
                 {
+                    loadScreen.FadeOut();
                     for (int p = players.Length - 1; p >= 0; p--)
                     {
                         GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
@@ -89,7 +92,7 @@ public class GameMaster : NetworkComponent
         //then send to credits
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("Win");
+        StartCoroutine(LoadScene("Win"));
     }
 
     public void DefeatEnemy() {
@@ -106,7 +109,13 @@ public class GameMaster : NetworkComponent
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        SceneManager.LoadScene("Lose");
+        StartCoroutine(LoadScene("Lose"));
+    }
+
+    IEnumerator LoadScene(string scene)
+    {
+        yield return new WaitForSeconds(1.1f);
+        SceneManager.LoadScene(scene);
     }
 
     public void PlayerDefeated() {
