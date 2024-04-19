@@ -10,7 +10,7 @@ public class GameMaster : NetworkComponent
 
     [SerializeField] int enemiesDefeated = 0;
     [SerializeField] int maxLives = 1; //incremented by total players
-    [SerializeField] SceneTransition loadScreen;
+    SceneTransition loadScreen;
 
     GameObject playerUI;
 
@@ -65,26 +65,32 @@ public class GameMaster : NetworkComponent
                 if (playersReady && !GameStarted)
                 {
                     SendUpdate("FADE", "");
-                    for (int p = players.Length - 1; p >= 0; p--)
-                    {
-                        GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
-                        player.GetComponent<Player>().pName = players[p].pName;
-                        player.GetComponent<Player>().playerNumber = p;
-                        maxLives++;
-                    }
                     GameStarted = true;
-                    yield return new WaitForSeconds(1.1f);
-                    SendUpdate("STARTGAME", "");
+                    StartCoroutine(StartGame(players));
                 }
             }
             yield return new WaitForSeconds(.1f);
         }
+    }
+
+    IEnumerator StartGame(NPM[] players)
+    {
+        for (int p = players.Length - 1; p >= 0; p--)
+        {
+            GameObject player = MyCore.NetCreateObject(0, players[p].Owner, GameObject.Find("P" + (p + 1).ToString() + "Start").transform.position);
+            player.GetComponent<Player>().pName = players[p].pName;
+            player.GetComponent<Player>().playerNumber = p;
+            maxLives++;
+        }
+        yield return new WaitForSeconds(2.5f);
+        SendUpdate("STARTGAME", "");
     }
     // Start is called before the first frame update
     void Start()
     {
         playerUI = GameObject.Find("playerUI");
         playerUI.GetComponent<Canvas>().enabled = false;
+        loadScreen = GameObject.FindObjectOfType<SceneTransition>();
     }
 
     // Update is called once per frame
