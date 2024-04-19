@@ -842,7 +842,7 @@ public class GenericCore_Web : MonoBehaviour
                     }
                 }
                 //GameObject.FindAnyObjectByType<LobbyManager2>().Disconnect(0);
-                Application.Quit();
+                //Application.Quit();
             }
         }
     }
